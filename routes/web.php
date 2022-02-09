@@ -13,6 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+use App\Http\Controllers\ControladorAdmin;
+
+/*Route::get('/asd', function () {
     return view('crear_articulo_mayor');
-});
+});*/
+
+Route::get('/',[App\Http\Controllers\ControladorPrincipal::class, 'index']);
+Route::get('/admin',[ControladorAdmin::class, 'index']);
+Route::get('/admin/mayor',[ControladorAdmin::class, 'crearMayor']);
+Route::get('/admin/menor',[ControladorAdmin::class, 'crearMenor']);
+Route::get('/admin/detalle-producto',[ControladorAdmin::class, 'detalleProducto']);
