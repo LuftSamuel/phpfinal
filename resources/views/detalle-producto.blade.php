@@ -1,6 +1,8 @@
 @include('cabecera')
 
-    <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="{{url('assets/img/hero')}}.jpg">
+<!-- <h1>El valor ingresado a traves de la url es: {{$producto}}</h1> -->
+    
+<div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="{{url('assets/img/hero')}}.jpg">
         <form class="d-flex tm-search-form">
             <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success tm-search-btn" type="submit">

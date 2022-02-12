@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 class ControladorContacto extends Controller
 {
     public function index(){
-        //metodo encargado de mostrar la pagina principal
+        $titulo = 'Contacto';
+        return view('contacto', ['titulo' => $titulo]);
     }
     
     public function create(){

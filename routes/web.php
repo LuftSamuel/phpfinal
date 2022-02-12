@@ -14,13 +14,21 @@ use Illuminate\Support\Facades\Route;
 */
 
 use App\Http\Controllers\ControladorAdmin;
+use App\Http\Controllers\ControladorContacto;
+use App\Http\Controllers\ControladorPrincipal;
 
 /*Route::get('/asd', function () {
     return view('crear_articulo_mayor');
 });*/
 
-Route::get('/',[App\Http\Controllers\ControladorPrincipal::class, 'index']);
+Route::get('/', function () {
+    return redirect('/index');
+});
+Route::get('/index',[ControladorPrincipal::class, 'index']);
+Route::get('/index/detalle-producto',[ControladorPrincipal::class, 'detalleProducto']);
+Route::get('/index/detalle-producto/{producto}',[ControladorPrincipal::class, 'detalleProducto']);
+Route::get('/contacto',[ControladorContacto::class, 'index']);
 Route::get('/admin',[ControladorAdmin::class, 'index']);
 Route::get('/admin/mayor',[ControladorAdmin::class, 'crearMayor']);
 Route::get('/admin/menor',[ControladorAdmin::class, 'crearMenor']);
-Route::get('/admin/detalle-producto',[ControladorAdmin::class, 'detalleProducto']);
+//Route::get('/admin/detalle-producto',[ControladorAdmin::class, 'detalleProducto']);

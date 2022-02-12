@@ -1,5 +1,5 @@
     @include('cabecera')
-
+    
     <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="{{url('assets/img/hero.jpg')}}">
         <form class="d-flex tm-search-form">
             <input class="form-control tm-search-input" type="search" placeholder="Buscar" aria-label="Search">

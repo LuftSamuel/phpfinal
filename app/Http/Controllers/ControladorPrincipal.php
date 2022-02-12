@@ -7,7 +7,13 @@ use Illuminate\Http\Request;
 class ControladorPrincipal extends Controller
 {
     public function index(){
-        return view('index');
+        $titulo = "Inicio";
+        return view('index', ['titulo' => $titulo]);
+    }
+    
+    public function detalleProducto($producto){
+        $titulo = "Detalle producto";
+        return view('detalle-producto', ['titulo' => $titulo, 'producto' => $producto]);
     }
     
     public function create(){
