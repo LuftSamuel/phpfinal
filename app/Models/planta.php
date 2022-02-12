@@ -9,5 +9,5 @@ class Planta extends Model
 {
     public $timestamps = false;
     use HasFactory;
-    protected $tabla = 'planta';
+    protected $table = 'planta';
 }

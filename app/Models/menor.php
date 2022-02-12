@@ -9,5 +9,5 @@ class Menor extends Model
 {
     public $timestamps = false;
     use HasFactory;
-    protected $tabla = 'menor';
+    protected $table = 'menor';
 }

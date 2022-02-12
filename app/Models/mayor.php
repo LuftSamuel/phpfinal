@@ -9,5 +9,5 @@ class Mayor extends Model
 {
     public $timestamps = false;
     use HasFactory;
-    protected $tabla = 'mayor';
+    protected $table = 'mayor';
 }
