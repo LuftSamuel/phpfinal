@@ -1,33 +1,38 @@
 @include('cabecera')
 
 <div style="margin: auto; max-width: 600px; width: 100%; padding: 2em;">
-    <form method="post" enctype="multipart/form-data">
+    <form method="post" enctype="multipart/form-data" action="crearMenor">
+        @csrf
+        <!-- input nombre de la planta -->
         <div class="mb-3">
             <label for="inputText" class="form-label">Nombre:</label>
-            <input type="text" name="title" class="form-control" id="inputText" required>
+            <input type="text" name="nombre" class="form-control" id="inputText" required>
         </div>
-        <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                Familia
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <li><button class="dropdown-item" type="button">familia 1</button></li>
-                <li><button class="dropdown-item" type="button">familia 2</button></li>
-                <li><button class="dropdown-item" type="button">familia 3</button></li>
-            </ul>
+        <!-- input select familia -->
+        <div class="form-group">
+            <label for="familia">Familia</label>
+            <select id="familia" name="familia" class="form-control">
+                <!-- <option selected>Selecciona una familia</option> -->
+                @foreach($familias as $familia)
+                    <option value="{{ $familia->id_familia }}">{{ $familia->familia }}</option>
+                @endforeach
+            </select>
         </div>
+        <!-- input archivo imagen -->
         <div class="mb-3">
-            <label for="formFileMultiple" class="form-label">Seleccionar archivo/s</label>
-            <input class="form-control" type="file" name="file" id="formFileMultiple" required>
-        </div>   
-        <div class="mb-3">
-            <label for="inputText" class="form-label">Precio unitario:</label>
-            <input type="text" name="title" class="form-control" id="inputText" required>
+            <input class="form-control" type="file" name="archivo_imagen" id="formFileMultiple" required>
         </div>
+        <!-- input cantidad en stock -->
         <div class="mb-3">
             <label for="inputText" class="form-label">Cantidad en stock:</label>
-            <input type="text" name="title" class="form-control" id="inputText" required>
+            <input type="text" name="cantidad_stock" class="form-control" id="inputText" required>
         </div>
+        <!-- input precio unitario -->
+        <div class="mb-3">
+            <label for="inputText" class="form-label">Precio unitario:</label>
+            <input type="text" name="precio_unitario" class="form-control" id="inputText" required>
+        </div>        
+        <!-- boton tipo submit -->
         <div class="col-12">
             <button class="btn btn-primary" type="submit">Subir</button>
         </div>

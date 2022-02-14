@@ -33,5 +33,7 @@ Route::get('/admin',[ControladorAdmin::class, 'index']);
 Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor']);
 Route::post('/admin/crearMayor',[ControladorAdmin::class, 'crearMayor']);
 
-Route::get('/admin/menor',[ControladorAdmin::class, 'crearMenor']);
+Route::get('/admin/menor',[ControladorAdmin::class, 'formularioMenor']);
+Route::post('/admin/crearMenor',[ControladorAdmin::class, 'crearMenor']);
+
 //Route::get('/admin/detalle-producto',[ControladorAdmin::class, 'detalleProducto']);

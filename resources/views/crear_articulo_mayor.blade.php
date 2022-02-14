@@ -26,7 +26,7 @@
         <!-- input pedido minimo -->
         <div class="mb-3">
             <label for="inputText" class="form-label">Pedido minimo:</label>
-            <input type="text" name="cantidad_minima" class="form-control" id="inputText" required>
+            <input type="text" name="pedido_minimo" class="form-control" id="inputText" required>
         </div>
         <!-- boton tipo submit -->
         <div class="col-12">
