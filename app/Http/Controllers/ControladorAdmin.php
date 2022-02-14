@@ -18,7 +18,11 @@ class ControladorAdmin extends Controller {
 
     public function formularioMayor() {
         $titulo = "Articulo al por mayor";
-        return view('crear_articulo_mayor', ['titulo' => $titulo]);
+        $plantas = planta::all();
+        $familias = Familia::all();
+        $mayores = Mayor::all();
+        $menores = Menor::all(); 
+        return view('crear_articulo_mayor', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
     }
     
     public function crearMayor(Request $request) { //con el request recibo toda la info del formulario
@@ -38,7 +42,8 @@ class ControladorAdmin extends Controller {
         //el tipo de venta, en este formulario siempre es 1 osea mayorista
         $planta->tipo_venta = 1;
         //id de la familia a la que pertenece la planta
-        $planta->id_familia = 0; //crear ese input, con el dropdown button
+        //$planta->id_familia = 0; //crear ese input, con el dropdown button
+        $planta->id_familia = $request->familia;
         /////////////////////
         if($request->hasFile('archivo_imagen')){
             //archivo, el que se sube a la carpeta imagenes, no a la bd
