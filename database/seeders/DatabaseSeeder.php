@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Familia;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,5 +22,11 @@ class DatabaseSeeder extends Seeder
             $obj->familia = $elemento;
             $obj->save();
         }
+        
+        $obj = new Admin();
+        $obj->usuario = 'admin';
+        $obj->email = 'admin@mail.com';
+        $obj->password = 'admin';
+        $obj->save();
     }
 }
