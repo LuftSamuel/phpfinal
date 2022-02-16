@@ -22,21 +22,17 @@
         </div>
     </div>
 
-    <div class="row tm-mb-90 tm-gallery"> <!<!-- desde aca -->
+    <div class="row tm-mb-90 tm-gallery"> <!-- desde aca -->
 
         @foreach($plantas as $planta) <!-- todavia no tengo imagenes para poner -->
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5 img-thumbnail">
             <figure class="effect-ming tm-video-item">
-                <img src="<?php echo "link de la imagen" ?>" alt="Image" class="img-fluid">
+                <img src="imagenes/{{ $planta->titulo_imagen }}" alt="Image" class=" img-fluid" >
                 <figcaption class="d-flex align-items-center justify-content-center">
                     <h2>{{$planta->nombre}}</h2>
                     <a href="<?php echo "www.google.com"; ?>">View more</a>
                 </figcaption>                    
             </figure>
-            <div class="d-flex justify-content-between tm-text-gray">
-                <span class="tm-text-gray-light"><?php echo "la fecha" ?></span>
-                <span><?php echo "Cantidad de vistas" ?></span>
-            </div>
         </div>
         @endforeach
 

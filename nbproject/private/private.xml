@@ -2,13 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/app/Http/Controllers/ControladorPrincipal.php</file>
-            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/public/imagenes/helecho-verde.jpg</file>
-            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/resources/views/index.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/resources/views/crear_articulo_mayor.blade.php</file>
-            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/app/Http/Controllers/ControladorAdmin.php</file>
-            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/routes/web.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

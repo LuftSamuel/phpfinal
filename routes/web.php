@@ -28,10 +28,12 @@ Route::get('/index',[ControladorPrincipal::class, 'index']);
 Route::get('/index/detalle-producto',[ControladorPrincipal::class, 'detalleProducto']);
 Route::get('/index/detalle-producto/{producto}',[ControladorPrincipal::class, 'detalleProducto']);
 Route::get('/contacto',[ControladorContacto::class, 'index']);
-Route::get('/admin',[ControladorAdmin::class, 'index']);
 
-Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor']);
-Route::post('/admin/crearMayor',[ControladorAdmin::class, 'crearMayor']);
+Route::get('/admin',[ControladorAdmin::class, 'formularioMayor']);
+
+//Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor']);
+Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor2']);
+Route::post('/admin/crearMayor',[ControladorAdmin::class, 'crearMayor'])->name('admin.mayor.crear');
 
 Route::get('/admin/menor',[ControladorAdmin::class, 'formularioMenor']);
 Route::post('/admin/crearMenor',[ControladorAdmin::class, 'crearMenor']);

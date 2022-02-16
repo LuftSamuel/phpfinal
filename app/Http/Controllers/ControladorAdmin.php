@@ -11,9 +11,13 @@ use App\Models\Menor;
 
 class ControladorAdmin extends Controller {
 
-    public function index() {
+    public function formularioMayor2() {
         $titulo = "Administrador";
-        return view('admin', ['titulo' => $titulo]);
+        $plantas = planta::all();
+        $familias = Familia::all();
+        $mayores = Mayor::all();
+        $menores = Menor::all();
+        return view('admin', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
     }
 
     public function formularioMayor() {
