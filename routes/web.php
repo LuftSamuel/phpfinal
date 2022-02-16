@@ -29,13 +29,13 @@ Route::get('/index/detalle-producto',[ControladorPrincipal::class, 'detalleProdu
 Route::get('/index/detalle-producto/{producto}',[ControladorPrincipal::class, 'detalleProducto']);
 Route::get('/contacto',[ControladorContacto::class, 'index']);
 
-Route::get('/admin',[ControladorAdmin::class, 'formularioMayor']);
-
+Route::get('/admin',[ControladorAdmin::class, 'login']);
+Route::get('/admin/index',[ControladorAdmin::class, 'index'])->name('admin.index');
 //Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor']);
-Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor2']);
+Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor'])->name('admin.mayor');
 Route::post('/admin/crearMayor',[ControladorAdmin::class, 'crearMayor'])->name('admin.mayor.crear');
 
-Route::get('/admin/menor',[ControladorAdmin::class, 'formularioMenor']);
-Route::post('/admin/crearMenor',[ControladorAdmin::class, 'crearMenor']);
+Route::get('/admin/menor',[ControladorAdmin::class, 'formularioMenor'])->name('admin.menor');
+Route::post('/admin/crearMenor',[ControladorAdmin::class, 'crearMenor'])->name('admin.menor.crear');
 
 //Route::get('/admin/detalle-producto',[ControladorAdmin::class, 'detalleProducto']);

@@ -11,22 +11,23 @@ use App\Models\Menor;
 
 class ControladorAdmin extends Controller {
 
-    public function formularioMayor2() {
-        $titulo = "Administrador";
-        $plantas = planta::all();
-        $familias = Familia::all();
-        $mayores = Mayor::all();
-        $menores = Menor::all();
-        return view('admin', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
+    public function login(){
+        $titulo = "Login";
+        return view('admin_login', compact('titulo'));
     }
-
+    
+    public function index(){
+        $titulo = "Panel admin";
+        return view('admin', compact('titulo'));
+    }
+    
     public function formularioMayor() {
         $titulo = "Articulo al por mayor";
         $plantas = planta::all();
         $familias = Familia::all();
         $mayores = Mayor::all();
         $menores = Menor::all();
-        return view('crear_articulo_mayor', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
+        return view('admin', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
     }
 
     public function crearMayor(Request $request) { //con el request recibo toda la info del formulario
@@ -75,7 +76,7 @@ class ControladorAdmin extends Controller {
         $familias = Familia::all();
         $mayores = Mayor::all();
         $menores = Menor::all();
-        return view('crear_articulo_menor', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
+        return view('admin', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
     }
 
     public function crearMenor(Request $request) {

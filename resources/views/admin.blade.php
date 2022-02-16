@@ -45,11 +45,15 @@
                     <ul class="nav" id="main-menu">
 
                         <li class="active-link">
-                            <a href="index.html" ><i class="fa fa-desktop "></i>Crear Mayorista</a>
+                            <a href="{{route('admin.index')}}" ><i class="fa fa-desktop "></i>Inicio</a>
+                        </li>
+                        
+                        <li class="active-link">
+                            <a href="{{route('admin.mayor')}}" ><i class="fa fa-desktop "></i>Crear Mayorista</a>
                         </li>
 
                         <li>
-                            <a href="ui.html"><i class="fa fa-table "></i>Crear Minorista</a>
+                            <a href="{{route('admin.menor')}}"><i class="fa fa-table "></i>Crear Minorista</a>
                         </li>
 
                     </ul>
@@ -57,8 +61,13 @@
 
             </nav>
           
-            
-         @include('admin_mayor')
+         @if($titulo == 'Panel admin')   
+            @include('admin_main')
+         @elseif($titulo == 'Articulo al por mayor')   
+            @include('admin_mayor')
+         @elseif($titulo == 'Articulo al por menor')   
+            @include('admin_menor')
+         @endif
             
         </div><!-- /. PAGE WRAPPER  -->
 
