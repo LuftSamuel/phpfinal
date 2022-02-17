@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        
+
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Simple Responsive Admin</title>
@@ -13,8 +13,8 @@
         <link href="../assets/css/custom.css" rel="stylesheet" />
         <!-- GOOGLE FONTS-->
         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
-        
-        
+
+
     </head>
     <body>
 
@@ -34,8 +34,10 @@
                     </div>
 
                     <span class="logout-spn" >
-                        <a href="#" style="color:#fff;">Desloguearse</a>  
-
+                        <form action="desloguearse" method="post">
+                            @csrf
+                            <a href="#" onclick="this.closest('form').submit()" style="color:#fff;">Desloguearse</a>
+                        </form>                        
                     </span>
                 </div>
             </div>
@@ -47,7 +49,7 @@
                         <li class="active-link">
                             <a href="{{route('admin.index')}}" ><i class="fa fa-desktop "></i>Inicio</a>
                         </li>
-                        
+
                         <li class="active-link">
                             <a href="{{route('admin.mayor')}}" ><i class="fa fa-desktop "></i>Crear Mayorista</a>
                         </li>
@@ -60,15 +62,15 @@
                 </div>
 
             </nav>
-          
-         @if($titulo == 'Panel admin')   
+
+            @if($titulo == 'Panel admin')   
             @include('admin_main')
-         @elseif($titulo == 'Articulo al por mayor')   
+            @elseif($titulo == 'Articulo al por mayor')   
             @include('admin_mayor')
-         @elseif($titulo == 'Articulo al por menor')   
+            @elseif($titulo == 'Articulo al por menor')   
             @include('admin_menor')
-         @endif
-            
+            @endif
+
         </div><!-- /. PAGE WRAPPER  -->
 
         <div class="footer">

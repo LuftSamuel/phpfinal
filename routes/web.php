@@ -31,6 +31,7 @@ Route::get('/index/detalle-producto/{producto}',[ControladorPrincipal::class, 'd
 Route::get('/contacto',[ControladorContacto::class, 'index']);
 
 Route::get('/admin',[ControladorAdmin::class, 'login']);
+Route::post('/admin/desloguearse',[ControladorAdmin::class, 'desloguearse']);
 Route::post('/admin',[ControladorAdmin::class, 'autenticarse']);
 Route::get('/admin/index',[ControladorAdmin::class, 'index'])->name('admin.index');
 //Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor']);
