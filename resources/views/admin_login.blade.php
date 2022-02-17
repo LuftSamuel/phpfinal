@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>{{str_replace("_"," ",config('app.name'))}}</title>
+        <title>{{$titulo}}</title>
         <link href="assets/css/admin_login.css" rel="stylesheet" />
     </head>
     <body>
@@ -8,7 +8,8 @@
         <div class="login">
             <h1>Login to Web App</h1>
             <form method="post" action="">
-                <p><input type="text" name="login" value="" placeholder="Username or Email"></p>
+                @csrf
+                <p><input type="text" name="email" value="" placeholder="Username or Email"></p>
                 <p><input type="password" name="password" value="" placeholder="Password"></p>
                 <p class="remember_me">
                     <label>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Planta;
@@ -11,16 +12,27 @@ use App\Models\Menor;
 
 class ControladorAdmin extends Controller {
 
-    public function login(){
+    public function login() {
         $titulo = "Login";
         return view('admin_login', compact('titulo'));
     }
-    
-    public function index(){
+
+    public function autenticarse(Request $request) {
+        $credenciales = request()->only('email', 'password');
+        if (Auth::attempt($credenciales)) {
+            //regenerar la sesion para evitar session fixation
+            request()->session()->regenerate();
+            return redirect(route('admin.index'));
+        } else {
+            return redirect('login');
+        }
+    }
+
+    public function index() {
         $titulo = "Panel admin";
         return view('admin', compact('titulo'));
     }
-    
+
     public function formularioMayor() {
         $titulo = "Articulo al por mayor";
         $plantas = planta::all();
@@ -32,7 +44,6 @@ class ControladorAdmin extends Controller {
 
     public function crearMayor(Request $request) { //con el request recibo toda la info del formulario
         //me falta el dato del pedido minimo que se guardara en la tabla mayor
-        
         $planta = new Planta();
         //el nombre de la planta, ej: aloe vera
         $planta->nombre = $request->nombre;
@@ -58,18 +69,18 @@ class ControladorAdmin extends Controller {
         $planta->direccion_imagen = $ruta;
 
         $planta->save();
-        
+
         $mayor = new Mayor();
         $mayor->id_planta = $planta->id;
         $mayor->pedido_minimo = $request->pedido_minimo;
-        
+
         $mayor->save();
 
         //$titulo = "Index";
         //return redirect('index', ['titulo' => $titulo]); <- por algun motivo misterioso da error
         return redirect('index');
     }
-    
+
     public function formularioMenor() {
         $titulo = "Articulo al por menor";
         $plantas = planta::all();
@@ -81,7 +92,7 @@ class ControladorAdmin extends Controller {
 
     public function crearMenor(Request $request) {
         //me faltan 2 datos: cantidad en stock y precio unitario que se van a guardar en la tabla menor
-        
+
         $planta = new Planta();
         //el nombre de la planta, ej: aloe vera
         $planta->nombre = $request->nombre;
@@ -107,7 +118,7 @@ class ControladorAdmin extends Controller {
         $planta->direccion_imagen = $ruta;
 
         $planta->save();
-        
+
         $menor = new Menor();
         $menor->id_planta = $planta->id;
         $menor->cantidad_stock = $request->cantidad_stock;
