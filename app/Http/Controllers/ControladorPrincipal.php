@@ -23,12 +23,4 @@ class ControladorPrincipal extends Controller
         $titulo = "Detalle producto";
         return view('detalle-producto', ['titulo' => $titulo, 'producto' => $producto]);
     }
-    
-    public function create(){
-        //metodo encargado de mostrar un formulario para crear algo
-    }
-    
-    public function show(){
-        //metodo encargado de mostrar un elemento en particular (ej una sola planta)
-    }
 }
