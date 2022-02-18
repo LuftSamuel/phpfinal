@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ControladorAdmin;
 use App\Http\Controllers\ControladorContacto;
 use App\Http\Controllers\ControladorPrincipal;
+use App\Http\Controllers\ControladorLogin;
 
 //las rutas a las que accede el usuario
 Route::get('/', function () {
@@ -27,9 +28,9 @@ Route::get('/index/detalle-producto/{producto}',[ControladorPrincipal::class, 'd
 Route::get('/contacto',[ControladorContacto::class, 'index']);
 
 //rutas para que el admin inicie y cierre sesion
-Route::get('/admin',[ControladorAdmin::class, 'login'])->name('login'); //middleware auth redirige a la ruta con nombre login
-Route::post('/admin/desloguearse',[ControladorAdmin::class, 'desloguearse']);
-Route::post('/admin',[ControladorAdmin::class, 'autenticarse']);
+Route::get('/login',[ControladorLogin::class, 'login'])->name('login'); //middleware auth redirige a la ruta con nombre login
+Route::post('/admin/desloguearse',[ControladorLogin::class, 'desloguearse']);
+Route::post('/login',[ControladorLogin::class, 'autenticarse']);
 
 //rutas para el admin
 //esta es la pagina de inicio, todavia no tiene funcion

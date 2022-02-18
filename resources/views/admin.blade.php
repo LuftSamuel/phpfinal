@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Simple Responsive Admin</title>
         <!-- BOOTSTRAP STYLES-->
-        <link href="../assets/css/bootstrap.css" rel="stylesheet" /> //depende la ruta da problemas
+        <link href="../assets/css/bootstrap.css" rel="stylesheet" /> <!-- depende la ruta da problemas -->
         <!-- FONTAWESOME STYLES-->
         <link href="../assets/css/font-awesome.css" rel="stylesheet" />
         <!-- CUSTOM STYLES-->
