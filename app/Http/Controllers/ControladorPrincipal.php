@@ -19,6 +19,19 @@ class ControladorPrincipal extends Controller
         return view('index',  compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
     }
     
+    public function busqueda(Request $request){
+        $titulo = "Inicio";
+        //$plantas = Planta::paginate(); //recuperar solo algunos en vez de todos
+        $parametro = $request->buscar;
+        //$parametro = $_GET['buscar'];
+        $plantas = Planta::where('nombre','like','%' . $parametro . '%')->get(); //resultado
+  
+        $familias = Familia::all();
+        $mayores = Mayor::all();
+        $menores = Menor::all();
+        return view('index',  compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
+    }
+    
     public function detalleProducto($producto){
         $titulo = "Detalle producto";
         return view('detalle-producto', ['titulo' => $titulo, 'producto' => $producto]);

@@ -36,7 +36,7 @@ class ControladorLogin extends Controller
         $request->session()->invalidate();
         //regenerar tokern csrf
         $request->session()->regenerateToken();
-        //return redirect('admin')->with('status','has cerrado cesion.'); //no se muestra el mensaje
+        return redirect(route('inicio'))->with('status','has cerrado cesion.'); //no se muestra el mensaje, capaz por los estilos           
     }
     
 }

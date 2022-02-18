@@ -22,7 +22,8 @@ use App\Http\Controllers\ControladorLogin;
 Route::get('/', function () {
     return redirect('/index');
 });
-Route::get('/index',[ControladorPrincipal::class, 'index']);
+Route::get('/index',[ControladorPrincipal::class, 'index'])->name('inicio');
+Route::get('/index',[ControladorPrincipal::class, 'busqueda'])->name('busqueda'); //misma url, no sera confuso?
 Route::get('/index/detalle-producto',[ControladorPrincipal::class, 'detalleProducto']);
 Route::get('/index/detalle-producto/{producto}',[ControladorPrincipal::class, 'detalleProducto']);
 Route::get('/contacto',[ControladorContacto::class, 'index']);
@@ -33,9 +34,12 @@ Route::post('/admin/desloguearse',[ControladorLogin::class, 'desloguearse']);
 Route::post('/login',[ControladorLogin::class, 'autenticarse']);
 
 //rutas para el admin
-//esta es la pagina de inicio, todavia no tiene funcion
+    //esta es la pagina de inicio, todavia no tiene funcion
+Route::get('/admin', function () {
+    return redirect('/admin/index');
+});
 Route::get('/admin/index',[ControladorAdmin::class, 'index'])->name('admin.index')->middleware('auth');
-//rutas para crear productos 
+    //rutas para crear productos 
 Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor'])->name('admin.mayor')->middleware('auth');
 Route::post('/admin/crearMayor',[ControladorAdmin::class, 'crearMayor'])->name('admin.mayor.crear')->middleware('auth');
 Route::get('/admin/menor',[ControladorAdmin::class, 'formularioMenor'])->name('admin.menor')->middleware('auth');

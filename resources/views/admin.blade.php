@@ -45,16 +45,16 @@
             <nav class="navbar-default navbar-side" role="navigation">
                 <div class="sidebar-collapse">
                     <ul class="nav" id="main-menu">
-
-                        <li class="active-link">
+                        
+                        <li class="{{ (Route::current()->getName() == "admin.index") ? "active-link" : "" }}">
                             <a href="{{route('admin.index')}}" ><i class="fa fa-desktop "></i>Inicio</a>
                         </li>
 
-                        <li class="active-link">
+                        <li class="{{ (Route::current()->getName() == "admin.mayor") ? "active-link" : "" }}">
                             <a href="{{route('admin.mayor')}}" ><i class="fa fa-desktop "></i>Crear Mayorista</a>
                         </li>
 
-                        <li>
+                        <li class="{{ (Route::current()->getName() == "admin.menor") ? "active-link" : "" }}">
                             <a href="{{route('admin.menor')}}"><i class="fa fa-table "></i>Crear Minorista</a>
                         </li>
 
@@ -64,11 +64,11 @@
             </nav>
 
             @if($titulo == 'Panel admin')   
-            @include('admin_main')
+                @include('admin_main')
             @elseif($titulo == 'Articulo al por mayor')   
-            @include('admin_mayor')
+                @include('admin_mayor')
             @elseif($titulo == 'Articulo al por menor')   
-            @include('admin_menor')
+                @include('admin_menor')
             @endif
 
         </div><!-- /. PAGE WRAPPER  -->

@@ -1,8 +1,8 @@
 @include('cabecera')
 
 <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="{{url('assets/img/hero.jpg')}}">
-    <form class="d-flex tm-search-form">
-        <input class="form-control tm-search-input" type="search" placeholder="Buscar" aria-label="Search">
+    <form class="d-flex tm-search-form" method="get" action="{{ route('busqueda') }}">
+        <input class="form-control tm-search-input" name="buscar" type="search" placeholder="Buscar" aria-label="Search">
         <button class="btn btn-outline-success tm-search-btn" type="submit">
             <i class="fas fa-search"></i>
         </button>
@@ -13,7 +13,7 @@
 
     <div class="row mb-4">
         <h2 class="col-6 tm-text-primary">
-            Latest Photos
+            Ultimos Articulos
         </h2>
         <div class="col-6 d-flex justify-content-end align-items-center">
             <form action="" class="tm-text-primary">
