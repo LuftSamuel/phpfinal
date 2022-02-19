@@ -8,6 +8,7 @@ use App\Models\Planta;
 use App\Models\Familia;
 use App\Models\Mayor;
 use App\Models\Menor;
+use Illuminate\Validation\ValidationException;
 
 class ControladorAdmin extends Controller {
 
@@ -38,7 +39,7 @@ class ControladorAdmin extends Controller {
         if ($request->hasFile('archivo_imagen')) {
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
-            //titulo
+            //titulo, quitar espacios
             $titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
             //direccion
             $ruta = public_path("imagenes/");
@@ -74,8 +75,9 @@ class ControladorAdmin extends Controller {
     }
 
     public function crearMenor(Request $request) {
-        //me faltan 2 datos: cantidad en stock y precio unitario que se van a guardar en la tabla menor
-
+        $request->validate([
+         'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:4096',
+        ]);
         $planta = new Planta();
         //el nombre de la planta, ej: aloe vera
         $planta->nombre = $request->nombre;

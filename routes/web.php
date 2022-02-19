@@ -22,11 +22,11 @@ use App\Http\Controllers\ControladorLogin;
 Route::get('/', function () {
     return redirect('/index');
 });
-Route::get('/index',[ControladorPrincipal::class, 'index'])->name('inicio');
-Route::get('/index',[ControladorPrincipal::class, 'busqueda'])->name('busqueda'); //misma url, no sera confuso?
+Route::get('/index',[ControladorPrincipal::class, 'index'])->name('inicio'); //no me deja llamar a esta ruta en cabecera
+Route::get('/index2',[ControladorPrincipal::class, 'busqueda'])->name('busqueda'); //misma url, no sera confuso?
 Route::get('/index/detalle-producto',[ControladorPrincipal::class, 'detalleProducto']);
 Route::get('/index/detalle-producto/{producto}',[ControladorPrincipal::class, 'detalleProducto']);
-Route::get('/contacto',[ControladorContacto::class, 'index']);
+Route::get('/contacto',[ControladorContacto::class, 'index'])->name('contacto');
 
 //rutas para que el admin inicie y cierre sesion
 Route::get('/login',[ControladorLogin::class, 'login'])->name('login'); //middleware auth redirige a la ruta con nombre login

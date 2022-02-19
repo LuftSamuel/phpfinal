@@ -31,7 +31,7 @@
                 
                 <!-- En esta parte podria revisar si el admin esta logeado y si esta 
                 entonces que en la navegacion me aparezcan mas links, para desloguearse
-                y para ir a la pagina de admin-->
+                y para ir a la pagina de admin, abajo tengo algo parecido-->
                 
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,10 +40,10 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-1" href="index.html">Articulos</a>
+                    <a class="nav-link nav-link-1" href="{{ route('inicio') }}">Articulos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-2" href="videos.html">Contacto</a>
+                    <a class="nav-link nav-link-2" href="{{ route('contacto') }}">Contacto</a>
                 </li>
                 @if(isset($_SESSION['nombre']))
                     <li class="nav-item">

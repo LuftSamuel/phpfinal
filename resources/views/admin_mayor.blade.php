@@ -17,7 +17,7 @@
                     <select id="familia" name="familia" class="form-control">
                         <!-- <option selected>Selecciona una familia</option> -->
                         @foreach($familias as $familia)
-                        <option value="{{ $familia->id_familia }}">{{ $familia->familia }}</option>
+                        <option value="{{ $familia->id_familia }}"  @if(old('familia')==$familia->id_familia) selected @endif>{{ $familia->familia }}</option>
                         @endforeach
                     </select>
                 </div>
@@ -34,7 +34,15 @@
                 <div class="col-12">
                     <button class="btn btn-primary" type="submit">Subir</button>
                 </div>
-
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
             </form>
         </div>
 
