@@ -43,7 +43,7 @@
                     <a class="nav-link nav-link-1" href="{{ route('inicio') }}">Articulos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link nav-link-2" href="{{ route('contacto') }}">Contacto</a>
+                    <a class="nav-link nav-link-2" href="{{ route('contacto.mostrar') }}">Contacto</a>
                 </li>
                 @if(isset($_SESSION['nombre']))
                     <li class="nav-item">

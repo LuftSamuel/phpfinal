@@ -26,7 +26,8 @@ Route::get('/index',[ControladorPrincipal::class, 'index'])->name('inicio'); //n
 Route::get('/index2',[ControladorPrincipal::class, 'busqueda'])->name('busqueda'); //misma url, no sera confuso?
 Route::get('/index/detalle-producto',[ControladorPrincipal::class, 'detalleProducto']);
 Route::get('/index/detalle-producto/{producto}',[ControladorPrincipal::class, 'detalleProducto']);
-Route::get('/contacto',[ControladorContacto::class, 'index'])->name('contacto');
+Route::get('/contacto',[ControladorContacto::class, 'index'])->name('contacto.mostrar');
+Route::post('/contacto',[ControladorContacto::class, 'contacto'])->name('contacto.guardar');
 
 //rutas para que el admin inicie y cierre sesion
 Route::get('/login',[ControladorLogin::class, 'login'])->name('login'); //middleware auth redirige a la ruta con nombre login
