@@ -27,6 +27,11 @@ class ControladorAdmin extends Controller {
     }
 
     public function crearMayor(Request $request) { //con el request recibo toda la info del formulario
+        $request->validate([
+            'nombre' => 'bail|required|max:100',
+            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg|max:4096',
+            'pedido_minimo' => 'bail|required|numeric|integer',
+        ]);
         //me falta el dato del pedido minimo que se guardara en la tabla mayor
         $planta = new Planta();
         //el nombre de la planta, ej: aloe vera
@@ -76,7 +81,10 @@ class ControladorAdmin extends Controller {
 
     public function crearMenor(Request $request) {
         $request->validate([
-         'image' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:4096',
+            'nombre' => 'bail|required|max:100',
+            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg|max:4096',
+            'cantidad_stock' => 'bail|required|numeric|integer',
+            'precio_unitario' => 'bail|required|numeric|integer',
         ]);
         $planta = new Planta();
         //el nombre de la planta, ej: aloe vera

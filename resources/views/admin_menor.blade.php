@@ -21,7 +21,7 @@
                 </div>
                 <!-- input archivo imagen -->
                 <div class="mb-3">
-                    <input class="form-control" type="file" value="{{ old('archivo_imagen') }}" name="archivo_imagen" id="formFileMultiple" required">
+                    <input class="form-control" type="file" name="archivo_imagen" id="formFileMultiple" required">
                 </div>
                 <!-- input cantidad en stock -->
                 <div class="mb-3">
