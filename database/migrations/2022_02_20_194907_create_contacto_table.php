@@ -19,7 +19,7 @@ class CreateContactoTable extends Migration
             $table->string('nombre', 100);
             $table->string('email', 100);
             $table->boolean('motivo');
-            $table->text('mensaje');
+            $table->string('mensaje', 10000);
         });
     }
 

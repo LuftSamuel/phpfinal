@@ -2,6 +2,11 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/app/Http/Controllers/ControladorContacto.php</file>
+            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/database/migrations/2022_02_20_194907_create_contacto_table.php</file>
+            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/resources/views/admin_main.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/app/Http/Controllers/ControladorAdmin.php</file>
+        </group>
     </open-files>
 </project-private>

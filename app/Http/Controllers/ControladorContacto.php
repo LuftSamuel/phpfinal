@@ -14,15 +14,18 @@ class ControladorContacto extends Controller {
     }
 
     public function Contacto(Request $request) {
-        $this->validate($request, [
+        $request->validate([
             'enviado' => Carbon::now(),
-            'nombre' => 'required',
-            'email' => 'required|email',
-            'motivo' => 'required',
-            'mensaje' => 'required'
+            'nombre' => 'required|max:100|alpha',
+            'email' => 'required|email|max:100',
+            'motivo' => 'required|string',
+            'mensaje' => 'required|max:10000|string'
         ]);
+        
         Contacto::create($request->all());
-        return back()->with('success', 'We have received your message and would like to thank you for writing to us.');
+        
+        return back()->with('success', 'We have received your message and would like'
+                . ' to thank you for writing to us.'); //de nuevo no recibo el mensaje
     }
 
 }

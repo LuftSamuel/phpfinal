@@ -16,7 +16,6 @@
                     </div>
                     <div class="form-group">
                         <select class="form-control" id="contact-select" name="motivo">
-                            <option >Motivo</option>
                             <option value="0">Compra de articulos al por mayor</option>
                             <option value="1">Otra consulta</option>
                         </select>
@@ -28,7 +27,16 @@
                     <div class="form-group tm-text-right">
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </div>
-                </form>                
+                </form>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
             </div>
             <div class="col-lg-4 col-12 mb-5">
                 <div class="tm-address-col">

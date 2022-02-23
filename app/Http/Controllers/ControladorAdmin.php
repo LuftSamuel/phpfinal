@@ -9,12 +9,16 @@ use App\Models\Familia;
 use App\Models\Mayor;
 use App\Models\Menor;
 use Illuminate\Validation\ValidationException;
+use App\Models\Contacto;
 
 class ControladorAdmin extends Controller {
 
     public function index() {
         $titulo = "Panel admin";
-        return view('admin', compact('titulo'));
+        
+        $mensajes = Contacto::paginate();
+        
+        return view('admin', compact('titulo', 'mensajes'));
     }
 
     public function formularioMayor() {
