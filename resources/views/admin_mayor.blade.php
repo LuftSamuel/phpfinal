@@ -9,7 +9,7 @@
                 <!-- input nombre de la planta -->
                 <div class="mb-3">
                     <label for="inputText" class="form-label">Nombre:</label>
-                    <input type="text" name="nombre" class="form-control" id="inputText" required>
+                    <input type="text" name="nombre" value="{{ old('nombre') }}" class="form-control" id="inputText" required>
                 </div>     
                 <!-- input select familia -->
                 <div class="form-group">
@@ -28,7 +28,7 @@
                 <!-- input pedido minimo -->
                 <div class="mb-3">
                     <label for="inputText" class="form-label">Pedido minimo:</label>
-                    <input type="text" name="pedido_minimo" class="form-control" id="inputText" required>
+                    <input type="text" name="pedido_minimo" value="{{ old('pedido_minimo') }}" class="form-control" id="inputText" required>
                 </div>
                 <!-- boton tipo submit -->
                 <div class="col-12">
