@@ -8,7 +8,7 @@
 
                 <!-- input nombre de la planta -->
                 <div class="mb-3">
-                    <label for="inputText" class="form-label">Nombre:</label>
+                    <label for="inputText" class="form-label">Nombre</label>
                     <input type="text" name="nombre" value="{{ old('nombre') }}" class="form-control" id="inputText" required>
                 </div>     
                 <!-- input select familia -->
@@ -23,13 +23,14 @@
                 </div>
                 <!-- input archivo imagen -->
                 <div class="mb-3">
+                    <label for="inputFile" class="form-label">Archivo imagen</label>
                     <input class="form-control" type="file" name="archivo_imagen" id="formFileMultiple" required>
                 </div>
                 <!-- input pedido minimo -->
                 <div class="mb-3">
-                    <label for="inputText" class="form-label">Pedido minimo:</label>
+                    <label for="inputText" class="form-label">Pedido minimo</label>
                     <input type="text" name="pedido_minimo" value="{{ old('pedido_minimo') }}" class="form-control" id="inputText" required>
-                </div>
+                </div><br>
                 <!-- boton tipo submit -->
                 <div class="col-12">
                     <button class="btn btn-primary" type="submit">Subir</button>

@@ -7,7 +7,7 @@
                 @csrf
                 <!-- input nombre de la planta -->
                 <div class="mb-3">
-                    <label for="inputText" class="form-label">Nombre:</label>
+                    <label for="inputText" class="form-label">Nombre</label>
                     <input type="text" value="{{ old('nombre') }}" name="nombre" class="form-control" id="inputText" required>
                 </div>
                 <!-- input select familia -->
@@ -21,18 +21,19 @@
                 </div>
                 <!-- input archivo imagen -->
                 <div class="mb-3">
+                    <label for="inputFile" class="form-label">Archivo imagen:</label>
                     <input class="form-control" type="file" name="archivo_imagen" id="formFileMultiple" required">
                 </div>
                 <!-- input cantidad en stock -->
                 <div class="mb-3">
-                    <label for="inputText" class="form-label">Cantidad en stock:</label>
+                    <label for="inputText" class="form-label">Cantidad en stock</label>
                     <input type="text" value="{{ old('cantidad_stock') }}" name="cantidad_stock" class="form-control" id="inputText" required>
                 </div>
                 <!-- input precio unitario -->
                 <div class="mb-3">
-                    <label for="inputText" class="form-label">Precio unitario:</label>
+                    <label for="inputText" class="form-label">Precio unitario</label>
                     <input type="text" value="{{ old('precio_unitario') }}" name="precio_unitario" class="form-control" id="inputText" required>
-                </div>        
+                </div><br>        
                 <!-- boton tipo submit -->
                 <div class="col-12">
                     <button class="btn btn-primary" type="submit">Subir</button>

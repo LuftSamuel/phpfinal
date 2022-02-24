@@ -134,6 +134,9 @@ return [
             'required' => 'Verifica que no eres un robot.',
             'captcha' => 'Error de captcha, intenta mas tarde o contacta al administrador del sitio.',
         ],
+        'archivo_imagen' => [
+          'dimensions' => 'Tamaño minimo de imagen 800x600.',  
+        ],
     ],
 
     /*

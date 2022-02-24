@@ -34,7 +34,7 @@ class ControladorAdmin extends Controller {
     public function crearMayor(Request $request) { //con el request recibo toda la info del formulario
         $request->validate([
             'nombre' => 'bail|required|max:100',
-            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg|max:4096',
+            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg|max:4096|dimensions:min_width=800,min_height=600',
             'pedido_minimo' => 'bail|required|numeric|integer',
         ]);
         //me falta el dato del pedido minimo que se guardara en la tabla mayor
@@ -87,7 +87,7 @@ class ControladorAdmin extends Controller {
     public function crearMenor(Request $request) {
         $request->validate([
             'nombre' => 'bail|required|max:100',
-            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg|max:4096',
+            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg|max:4096|dimensions:min_width=800,min_height=600',
             'cantidad_stock' => 'bail|required|numeric|integer',
             'precio_unitario' => 'bail|required|numeric|integer',
         ]);
