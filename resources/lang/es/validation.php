@@ -130,8 +130,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'g-recaptcha-response' => [
+            'required' => 'Verifica que no eres un robot.',
+            'captcha' => 'Error de captcha, intenta mas tarde o contacta al administrador del sitio.',
         ],
     ],
 

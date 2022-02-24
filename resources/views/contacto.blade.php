@@ -23,7 +23,10 @@
                     <div class="form-group">
                         <textarea rows="8" name="mensaje" class="form-control rounded-0" placeholder="Mensaje" required=></textarea>
                     </div>
-
+                    <div class="form-group">
+                        {!! NoCaptcha::renderJs('es') !!}
+                        {!! NoCaptcha::display() !!}
+                     </div>
                     <div class="form-group tm-text-right">
                         <button type="submit" class="btn btn-primary">Enviar</button>
                     </div>

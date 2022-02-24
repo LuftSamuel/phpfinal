@@ -16,8 +16,9 @@ class ControladorAdmin extends Controller {
     public function index() {
         $titulo = "Panel admin";
         
-        $mensajes = Contacto::paginate();
-        
+        //$mensajes = Contacto::paginate()->latest;
+        $mensajes= Contacto::orderBy('id', 'DESC')->limit(16)->get();
+
         return view('admin', compact('titulo', 'mensajes'));
     }
 

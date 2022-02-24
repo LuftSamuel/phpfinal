@@ -19,7 +19,8 @@ class ControladorContacto extends Controller {
             'nombre' => 'required|max:100|alpha',
             'email' => 'required|email|max:100',
             'motivo' => 'required|string',
-            'mensaje' => 'required|max:10000|string'
+            'mensaje' => 'required|max:10000|string',
+            'g-recaptcha-response' => 'required|captcha'
         ]);
         
         Contacto::create($request->all());
