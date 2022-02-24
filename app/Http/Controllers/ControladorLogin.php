@@ -6,14 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 
-class ControladorLogin extends Controller
-{
+class ControladorLogin extends Controller {
+
     public function login() {
         $titulo = "Login";
         return view('admin_login', compact('titulo'));
-    }    
+    }
 
     public function autenticarse(Request $request) {
+        $request->validate([
+            'g-recaptcha-response' => 'required|captcha'
+        ]);
         $credenciales = $request->validate([
             'email' => ['required', 'email', 'string'],
             'password' => ['required', 'string']
@@ -25,10 +28,10 @@ class ControladorLogin extends Controller
             return redirect(route('admin.index'));
         }
         throw ValidationException::withMessages([
-            'email' => 'Credenciales incorrectas.'
-        ]); //no hace nada esto
+                    'email' => 'Credenciales incorrectas.'
+        ]);
     }
-    
+
     public function desloguearse(Request $request) {
         //eliminar informacion de autenticacion de la sesion
         Auth::logout();
@@ -36,7 +39,7 @@ class ControladorLogin extends Controller
         $request->session()->invalidate();
         //regenerar tokern csrf
         $request->session()->regenerateToken();
-        return redirect(route('inicio'))->with('status','has cerrado cesion.'); //no se muestra el mensaje, capaz por los estilos           
+        return redirect(route('inicio'))->with('status', 'has cerrado cesion.'); //no se muestra el mensaje, capaz por los estilos           
     }
-    
+
 }

@@ -17,7 +17,24 @@
                         Mantener sesion iniciada en este equipo
                     </label>
                 </p>
+                <!-- Captcha -->
+                @if ($errors->has('g-recaptcha-response'))
+                <span class="alert-danger">
+                    <strong>{{ $errors->first('g-recaptcha-response') }}</strong>
+                </span>
+                @endif
+                <div class="form-group">
+                    {!! NoCaptcha::renderJs('es') !!}
+                    {!! NoCaptcha::display() !!}
+                </div>
+                <br><br>
                 <p class="submit"><input type="submit" name="commit" value="Entrrar"></p>
+                <!-- errores -->
+                @if ($errors->has('email'))
+                <span class="alert alert-danger">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </span>
+                @endif          
             </form>
         </div>
 
