@@ -34,7 +34,7 @@ class ControladorAdmin extends Controller {
     public function crearMayor(Request $request) { //con el request recibo toda la info del formulario
         $request->validate([
             'nombre' => 'bail|required|max:100',
-            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg|max:4096|dimensions:min_width=800,min_height=600',
+            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
             'pedido_minimo' => 'bail|required|numeric|integer',
         ]);
         //me falta el dato del pedido minimo que se guardara en la tabla mayor
@@ -55,8 +55,7 @@ class ControladorAdmin extends Controller {
             $ruta = public_path("imagenes/");
             //subo el archivo
             $archivo_imagen->move($ruta, $titulo_imagen);
-        }
-
+        }      
         //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;
         //guardo la ruta que tenia en la variable $ruta
@@ -87,7 +86,7 @@ class ControladorAdmin extends Controller {
     public function crearMenor(Request $request) {
         $request->validate([
             'nombre' => 'bail|required|max:100',
-            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg|max:4096|dimensions:min_width=800,min_height=600',
+            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
             'cantidad_stock' => 'bail|required|numeric|integer',
             'precio_unitario' => 'bail|required|numeric|integer',
         ]);
@@ -107,9 +106,8 @@ class ControladorAdmin extends Controller {
             //direccion
             $ruta = public_path("imagenes/");
             //subo el archivo
-            $archivo_imagen->move($ruta, $titulo_imagen);
-        }
-
+            $archivo_imagen->move($ruta, $titulo_imagen);            
+        }        
         //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;
         //guardo la ruta que tenia en la variable $ruta

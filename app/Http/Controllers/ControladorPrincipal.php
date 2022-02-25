@@ -32,8 +32,11 @@ class ControladorPrincipal extends Controller
         return view('index',  compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
     }
     
-    public function detalleProducto($producto){
+    public function detalleProducto($id){ //$id es el parametro que recibo de la ruta
+        //ese $producto que recibo es solo el nombre de la imagen sin extension
         $titulo = "Detalle producto";
-        return view('detalle-producto', ['titulo' => $titulo, 'producto' => $producto]);
+        $planta = Planta::where('id_planta',$id)->get();
+        //dd($planta);
+        return view('detalle-producto', compact('titulo','planta'));
     }
 }

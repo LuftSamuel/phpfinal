@@ -25,12 +25,20 @@
     <div class="row tm-mb-90 tm-gallery"> <!-- desde aca -->
 
         @foreach($plantas as $planta) <!-- todavia no tengo imagenes para poner -->
-        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5 img-thumbnail">
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
             <figure class="effect-ming tm-video-item">
-                <img src="imagenes/{{ $planta->titulo_imagen }}" alt="Image" class=" img-fluid" >
+                <!-- el tamaño que le doy aca es temporal, queda feo por que no corresponde con las dimensiones
+                originales de la imagen, debo hacer miniaturas con alguna herramienta de crop -->
+                <img src="imagenes/{{ $planta->titulo_imagen }}" class="img-fluid" style="width:320px;height:240px;"> 
                 <figcaption class="d-flex align-items-center justify-content-center">
                     <h2>{{$planta->nombre}}</h2>
-                    <a href="<?php echo "www.google.com"; ?>">View more</a>
+                    <!-- <a href="{{ route('individual',$planta->nombre) }}">View more</a> -->
+                    <!-- con Str::slug reemplazo el caracter de espacio en blanco en la url -->
+                    <a href="{{route('individual', Str::slug($planta->id_planta))}}">Ver mas</a>
+                    <!-- en la linea de arriba tengo dos grandes problemas, el nombre no contiene la extension
+                    que necesito para abrir el archivo, si le paso la extension se muestra en la url.
+                    el otro problema es que el punto no se muestra en la url asi que no llega a abrir el archivo
+                    por que antes de la extension falta el punto-->
                 </figcaption>                    
             </figure>
         </div>
