@@ -132,5 +132,34 @@ class ControladorAdmin extends Controller {
         $titulo = "Detalle del producto";
         return view('detalle-producto', ['titulo' => $titulo]);
     }
+    
+    public function formularioFamilia() {
+        $titulo = "Familias";
+        
+        $familias = Familia::all();
+        $plantas = Planta::all();
+
+        return view('admin', compact('titulo', 'familias', 'plantas'));
+    }
+    
+    public function crearFamilia(Request $request) {
+        $request->validate([
+            'familia' => 'bail|required|max:100',
+        ]);
+        $familia = new Familia();
+        $familia->familia = $request->familia;
+        $familia->save();
+
+        return redirect('index');
+    }
+    
+    public function borrarFamilia(Request $request){
+        $id_familia = $request->id_familia;
+        //$familia = Familia::find($id_familia);
+        $familia = Familia::where('id_familia',$id_familia);
+        $familia->delete();
+        
+        return redirect('index');
+    }
 
 }

@@ -4,7 +4,7 @@
 
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Simple Responsive Admin</title>
+        <title>{{$titulo . " | " . str_replace("_"," ",config('app.name'))}}</title>
         <!-- BOOTSTRAP STYLES-->
         <link href="../assets/css/bootstrap.css" rel="stylesheet" /> <!-- depende la ruta da problemas -->
         <!-- FONTAWESOME STYLES-->
@@ -56,6 +56,10 @@
                         <li class="{{ (Route::current()->getName() == "admin.menor") ? "active-link" : "" }}">
                             <a href="{{route('admin.menor')}}"><i class="fa fa-table "></i>Crear Minorista</a>
                         </li>
+                        
+                        <li class="{{ (Route::current()->getName() == "admin.menor") ? "active-link" : "" }}">
+                            <a href="{{route('admin.familia')}}"><i class="fa fa-table "></i>Administrar Familias</a>
+                        </li>
 
                     </ul>
                 </div>
@@ -63,11 +67,13 @@
             </nav>
 
             @if($titulo == 'Panel admin')   
-                @include('admin_main')
+                @include('admin_mensajes')
             @elseif($titulo == 'Articulo al por mayor')   
                 @include('admin_mayor')
             @elseif($titulo == 'Articulo al por menor')   
                 @include('admin_menor')
+            @elseif($titulo == 'Familias')
+                @include('admin_familia')
             @endif
 
         </div><!-- /. PAGE WRAPPER  -->

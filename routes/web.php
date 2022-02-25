@@ -45,3 +45,7 @@ Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor'])->name('a
 Route::post('/admin/crearMayor',[ControladorAdmin::class, 'crearMayor'])->name('admin.mayor.crear')->middleware('auth');
 Route::get('/admin/menor',[ControladorAdmin::class, 'formularioMenor'])->name('admin.menor')->middleware('auth');
 Route::post('/admin/crearMenor',[ControladorAdmin::class, 'crearMenor'])->name('admin.menor.crear')->middleware('auth');
+
+Route::get('/admin/familia',[ControladorAdmin::class, 'formularioFamilia'])->name('admin.familia')->middleware('auth');
+Route::post('/admin/crearFamilia',[ControladorAdmin::class, 'crearFamilia'])->name('admin.familia.crear')->middleware('auth');
+Route::get('/admin/borrarFamilia',[ControladorAdmin::class, 'borrarFamilia'])->name('admin.familia.borrar')->middleware('auth');
