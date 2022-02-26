@@ -12,7 +12,7 @@ class ControladorPrincipal extends Controller
 {
     public function index(){
         $titulo = "Inicio";
-        $plantas = Planta::paginate(); //recuperar solo algunos en vez de todos
+        $plantas = Planta::paginate(1); //recuperar solo algunos en vez de todos
         $familias = Familia::all();
         $mayores = Mayor::all();
         $menores = Menor::all();
@@ -24,7 +24,7 @@ class ControladorPrincipal extends Controller
         //$plantas = Planta::paginate(); //recuperar solo algunos en vez de todos
         $parametro = $request->buscar;
         //$parametro = $_GET['buscar'];
-        $plantas = Planta::where('nombre','like','%' . $parametro . '%')->get(); //resultado
+        $plantas = Planta::where('nombre','like','%' . $parametro . '%')->paginate(1); //resultado
   
         $familias = Familia::all();
         $mayores = Mayor::all();

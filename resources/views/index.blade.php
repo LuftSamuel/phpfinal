@@ -47,17 +47,71 @@
     </div> <!-- hasta aca row -->
 
     <div class="row tm-mb-90">
+        @if ($plantas->hasPages())
         <div class="col-12 d-flex justify-content-between align-items-center tm-paging-col">
-            <a href="javascript:void(0);" class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
+           
+            
+            
+            @if($plantas->onFirstPage())
+            <a class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
+            @else
+            <a href="{{ $plantas->previousPageUrl() }}" class="btn btn-primary tm-btn-prev mb-2">Previous</a>
+            @endif
+            
+            @if($plantas->onFirstPage())
+            <a href="{{ $plantas->url(1) }}" class="disabled btn btn-primary tm-btn-prev mb-2">Primera</a>
+            @else
+            <a href="{{ $plantas->url(1) }}" class="btn btn-primary tm-btn-prev mb-2">Primera</a>
+            @endif
+            
             <div class="tm-paging d-flex">
-                <a href="javascript:void(0);" class="active tm-paging-link">1</a>
-                <a href="javascript:void(0);" class="tm-paging-link">2</a>
-                <a href="javascript:void(0);" class="tm-paging-link">3</a>
-                <a href="javascript:void(0);" class="tm-paging-link">4</a>
+                @if($plantas->lastPage()>6) <!-- cambiar ese numero -->
+                    
+                    @if($plantas->currentPage() - 3 >= 1)
+                    <a href="{{ $plantas->url($plantas->currentPage() - 3) }}" class="tm-paging-link">{{ $plantas->currentPage() - 3 }}</a>
+                    @endif
+                    @if($plantas->currentPage() - 2 >= 1)
+                    <a href="{{ $plantas->url($plantas->currentPage() - 2) }}" class="tm-paging-link">{{ $plantas->currentPage() - 2 }}</a>
+                    @endif
+                    @if($plantas->currentPage() - 1 >= 1)
+                    <a href="{{ $plantas->url($plantas->currentPage() - 1) }}" class="tm-paging-link">{{ $plantas->currentPage() - 1 }}</a>
+                    @endif                    
+                    <a href="{{ $plantas->url($plantas->currentPage()) }}" class="active tm-paging-link">{{ $plantas->currentPage() }}</a>
+                    @if($plantas->currentPage() + 1 <= $plantas->lastPage())
+                    <a href="{{ $plantas->url($plantas->currentPage() + 1) }}" class="tm-paging-link">{{ $plantas->currentPage() + 1 }}</a>
+                    @endif
+                    @if($plantas->currentPage() + 2 <= $plantas->lastPage())
+                    <a href="{{ $plantas->url($plantas->currentPage() + 2) }}" class="tm-paging-link">{{ $plantas->currentPage() + 2 }}</a>
+                    @endif
+                    @if($plantas->currentPage() + 3 <= $plantas->lastPage())
+                    <a href="{{ $plantas->url($plantas->currentPage() + 3) }}" class="tm-paging-link">{{ $plantas->currentPage() + 3 }}</a>
+                    @endif
+                    
+                @else
+                    @for($i=0; $i<=$plantas->count(); $i++)
+                        @if($plantas->currentPage() == $i+1)
+                            <a href="{{ $plantas->url($i+1) }}" class="active tm-paging-link">{{ $i+1 }}</a>
+                        @else
+                            <a href="{{ $plantas->url($i+1) }}" class="tm-paging-link">{{ $i+1 }}</a>
+                        @endif
+                    @endfor
+                @endif
             </div>
-            <a href="javascript:void(0);" class="btn btn-primary tm-btn-next">Next Page</a>
+            
+            @if($plantas->onLastPage())
+            <a href="{{ $plantas->url($plantas->lastPage()) }}" class="disabled btn btn-primary tm-btn-prev mb-2">Ultima</a>
+            @else
+            <a href="{{ $plantas->url($plantas->lastPage()) }}" class="btn btn-primary tm-btn-prev mb-2">Ultima</a>
+            @endif
+            
+            @if($plantas->onLastPage())
+            <a class="btn btn-primary tm-btn-next disabled">Next Page</a>
+            @else
+            <a href="{{ $plantas->nextPageUrl() }}" class="btn btn-primary tm-btn-next">Next Page</a>
+            @endif
+            
         </div>  
-
+        @endif
     </div>
 </div> <!-- container-fluid, tm-container-content -->
 
