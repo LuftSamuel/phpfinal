@@ -22,8 +22,9 @@ use App\Http\Controllers\ControladorLogin;
 Route::get('/', function () {
     return redirect('/index');
 });
-Route::get('/index',[ControladorPrincipal::class, 'index'])->name('inicio'); //no me deja llamar a esta ruta en cabecera
-Route::get('/index2',[ControladorPrincipal::class, 'busqueda'])->name('busqueda'); //misma url, no sera confuso?
+
+//Route::get('/index',[ControladorPrincipal::class, 'index'])->name('inicio'); //no me deja llamar a esta ruta en cabecera
+Route::get('/index',[ControladorPrincipal::class, 'busqueda'])->name('busqueda'); //misma url, no sera confuso?
 Route::get('/index/detalle-producto',[ControladorPrincipal::class, 'detalleProducto']);
 Route::get('/index/detalle-producto/{id}',[ControladorPrincipal::class, 'detalleProducto'])->name('individual');
 Route::get('/contacto',[ControladorContacto::class, 'index'])->name('contacto.mostrar');

@@ -26,7 +26,7 @@
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             
-            <a class="navbar-brand" href="{{ route('inicio') }}">
+            <a class="navbar-brand" href="{{ route('busqueda') }}">
                 <i class="fas fa-film mr-2"></i>
                 {{str_replace("_"," ",config('app.name'))}}
                 <!-- En esta parte podria revisar si el admin esta logeado y si esta 
@@ -51,7 +51,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link nav-link-1" href="{{ route('inicio') }}">Articulos</a>
+                    <a class="nav-link nav-link-1" href="{{ route('busqueda') }}">Articulos</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link nav-link-2" href="{{ route('contacto.mostrar') }}">Contacto</a>

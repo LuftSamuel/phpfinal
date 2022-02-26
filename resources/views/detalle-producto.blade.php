@@ -18,9 +18,9 @@
         <div class="row tm-mb-90">            
             <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
                 <!-- sin el foreach no podia llegar a las distintas variables que estan
-                contenidas en planta-->
+                contenidas en planta, array con 1 elemento cambiarlo despues-->
                 @foreach($planta as $plant)
-                <img src="../../imagenes/{{ $plant->titulo_imagen }}" alt="Image" class="img-fluid">
+                <img src="{{asset('imagenes/' . $plant->titulo_imagen) }}" alt="Image" class="img-fluid">
                 @endforeach
             </div>
             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
