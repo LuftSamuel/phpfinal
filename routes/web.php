@@ -31,7 +31,7 @@ Route::post('/contacto',[ControladorContacto::class, 'contacto'])->name('contact
 
 //rutas para que el admin inicie y cierre sesion
 Route::get('/login',[ControladorLogin::class, 'login'])->name('login'); //middleware auth redirige a la ruta con nombre login
-Route::post('/admin/desloguearse',[ControladorLogin::class, 'desloguearse']);
+Route::post('/admin/desloguearse',[ControladorLogin::class, 'desloguearse'])->name('desloguearse');
 Route::post('/login',[ControladorLogin::class, 'autenticarse']);
 
 //rutas para el admin

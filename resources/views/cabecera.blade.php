@@ -25,15 +25,26 @@
     </div>
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
+            
             <a class="navbar-brand" href="{{ route('inicio') }}">
                 <i class="fas fa-film mr-2"></i>
                 {{str_replace("_"," ",config('app.name'))}}
-                
                 <!-- En esta parte podria revisar si el admin esta logeado y si esta 
                 entonces que en la navegacion me aparezcan mas links, para desloguearse
                 y para ir a la pagina de admin, abajo tengo algo parecido-->
-                
             </a>
+            
+            @if(Auth::User())
+            <form action="{{route('desloguearse')}}" method="post">
+                @csrf
+                <a class="navbar-brand alert alert-danger" href="#" onclick="this.closest('form').submit()";">Desloguearse</a>
+            </form>
+            
+            <form action="{{route('admin.index')}}" method="get">
+                <a class="navbar-brand alert alert-dark" href="#" onclick="this.closest('form').submit()";">Panel de administrador</a>
+            </form>
+            @endif
+            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>

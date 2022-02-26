@@ -38,6 +38,13 @@
                             <a href="#" onclick="this.closest('form').submit()" style="color:#fff;">Desloguearse</a>
                         </form>                        
                     </span>
+                    
+                    <span class="logout-spn" >
+                        <form action="{{route('inicio')}}" method="get">
+                            <a href="#" onclick="this.closest('form').submit()" style="color:#fff;">Inicio</a>
+                        </form>                        
+                    </span>
+                    
                 </div>
             </div>
             <!-- /. NAV TOP  -->
