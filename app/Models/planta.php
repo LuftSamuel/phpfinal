@@ -10,4 +10,5 @@ class Planta extends Model
     public $timestamps = false;
     use HasFactory;
     protected $table = 'planta';
+    protected $primaryKey = 'SongID';
 }

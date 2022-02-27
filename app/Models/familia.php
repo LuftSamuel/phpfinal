@@ -10,4 +10,5 @@ class Familia extends Model
     public $timestamps = false;
     use HasFactory;
     protected $table = 'familia';
+    protected $primaryKey = 'id_familia';
 }

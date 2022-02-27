@@ -70,6 +70,42 @@
                 @endif
             </form>
         </div>
+        
+                
+        <div style="margin: auto; max-width: 600px; width: 100%; padding: 2em;">
+            <h2>Modificar una familia</h2>
+            <form method="post" enctype="multipart/form-data" action={{route('admin.familia.modificar')}}>
+                @csrf
+
+                <!-- input select familia -->
+                <div class="form-group">
+                    <label for="familia">Familia</label>
+                    <select id="familia" name="id_familia" class="form-control">
+                        @foreach($familias as $familia)
+                            <option value="{{ $familia->id_familia }}"  @if(old('familia')==$familia->id_familia) selected @endif>{{ $familia->familia }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <!-- input nuevo nombre de la familia -->
+                <div class="mb-3">
+                    <label for="inputText" class="form-label">Nuevo Nombre</label>
+                    <input type="text" name="nombre" value="{{ old('familia') }}" class="form-control" id="inputText" required>
+                </div><br> 
+                <!-- boton tipo submit -->
+                <div class="col-12">
+                    <button class="btn btn-primary" type="submit">Modificar</button>
+                </div>
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+            </form>
+        </div>
 
     </div>
 

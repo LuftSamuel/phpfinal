@@ -161,5 +161,14 @@ class ControladorAdmin extends Controller {
         
         return redirect('index');
     }
+    
+    public function modificarFamilia(Request $request){
+        $id_familia = $request->id_familia;
+        $familia = Familia::where('id_familia',$id_familia)->first();
+        $familia->familia = $request->nombre;        
+        $familia->save();
+        
+        return redirect('index');
+    }
 
 }
