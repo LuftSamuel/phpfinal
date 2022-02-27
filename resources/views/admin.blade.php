@@ -64,8 +64,12 @@
                             <a href="{{route('admin.menor')}}"><i class="fa fa-table "></i>Crear Minorista</a>
                         </li>
                         
-                        <li class="{{ (Route::current()->getName() == "admin.menor") ? "active-link" : "" }}">
+                        <li class="{{ (Route::current()->getName() == "admin.familia") ? "active-link" : "" }}">
                             <a href="{{route('admin.familia')}}"><i class="fa fa-table "></i>Administrar Familias</a>
+                        </li>
+                        
+                        <li class="{{ (Route::current()->getName() == "admin.planta") ? "active-link" : "" }}">
+                            <a href="{{route('admin.planta')}}"><i class="fa fa-table "></i>Administrar Plantas</a>
                         </li>
 
                     </ul>
@@ -81,6 +85,8 @@
                 @include('admin_menor')
             @elseif($titulo == 'Familias')
                 @include('admin_familia')
+            @elseif($titulo == 'Plantas')
+                @include('admin_plantas')
             @endif
 
         </div><!-- /. PAGE WRAPPER  -->

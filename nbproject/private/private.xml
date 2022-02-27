@@ -3,7 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/database/migrations/2022_02_09_161227_create_familia_table.php</file>
+            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/resources/views/admin_plantas.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/resources/views/admin_familia.blade.php</file>
+            <file>file:/C:/xampp/htdocs/Proyectos/finalphp-github/resources/views/admin.blade.php</file>
         </group>
     </open-files>
 </project-private>

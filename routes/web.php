@@ -44,6 +44,7 @@ Route::get('/admin/index',[ControladorAdmin::class, 'index'])->name('admin.index
     //rutas para crear productos 
 Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor'])->name('admin.mayor')->middleware('auth');
 Route::post('/admin/crearMayor',[ControladorAdmin::class, 'crearMayor'])->name('admin.mayor.crear')->middleware('auth');
+
 Route::get('/admin/menor',[ControladorAdmin::class, 'formularioMenor'])->name('admin.menor')->middleware('auth');
 Route::post('/admin/crearMenor',[ControladorAdmin::class, 'crearMenor'])->name('admin.menor.crear')->middleware('auth');
 
@@ -51,3 +52,5 @@ Route::get('/admin/familia',[ControladorAdmin::class, 'formularioFamilia'])->nam
 Route::post('/admin/crearFamilia',[ControladorAdmin::class, 'crearFamilia'])->name('admin.familia.crear')->middleware('auth');
 Route::get('/admin/borrarFamilia',[ControladorAdmin::class, 'borrarFamilia'])->name('admin.familia.borrar')->middleware('auth');
 Route::post('/admin/modificarFamilia',[ControladorAdmin::class, 'modificarFamilia'])->name('admin.familia.modificar')->middleware('auth');
+
+Route::get('/admin/planta',[ControladorAdmin::class, 'formularioPlanta'])->name('admin.planta')->middleware('auth');

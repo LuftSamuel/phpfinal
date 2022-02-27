@@ -170,5 +170,14 @@ class ControladorAdmin extends Controller {
         
         return redirect('index');
     }
+    
+    public function formularioPlanta() {
+        $titulo = "Plantas";
+        
+        $familias = Familia::all();
+        $plantas = Planta::all();
+
+        return view('admin', compact('titulo', 'familias', 'plantas'));
+    }
 
 }
