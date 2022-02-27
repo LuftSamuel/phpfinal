@@ -40,7 +40,7 @@
                     </span>
                     
                     <span class="logout-spn" >
-                        <form action="{{route('inicio')}}" method="get">
+                        <form action="{{route('busqueda')}}" method="get">
                             <a href="#" onclick="this.closest('form').submit()" style="color:#fff;">Inicio</a>
                         </form>                        
                     </span>

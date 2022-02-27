@@ -16,7 +16,7 @@ class ControladorContacto extends Controller {
     public function Contacto(Request $request) {
         $request->validate([
             'enviado' => Carbon::now(),
-            'nombre' => 'required|max:100|alpha',
+            'nombre' => 'required|max:100|regex:/^[\pL\s\-]+$/u',
             'email' => 'required|email|max:100',
             'motivo' => 'required|string',
             'mensaje' => 'required|max:10000|string',
