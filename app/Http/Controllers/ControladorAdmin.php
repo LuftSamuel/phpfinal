@@ -10,14 +10,16 @@ use App\Models\Mayor;
 use App\Models\Menor;
 use Illuminate\Validation\ValidationException;
 use App\Models\Contacto;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 class ControladorAdmin extends Controller {
 
     public function index() {
         $titulo = "Panel admin";
-        
+
         //$mensajes = Contacto::paginate()->latest;
-        $mensajes= Contacto::orderBy('id', 'DESC')->limit(16)->get();
+        $mensajes = Contacto::orderBy('id', 'DESC')->limit(16)->get();
 
         return view('admin', compact('titulo', 'mensajes'));
     }
@@ -37,7 +39,22 @@ class ControladorAdmin extends Controller {
             'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
             'pedido_minimo' => 'bail|required|numeric|integer',
         ]);
-        //me falta el dato del pedido minimo que se guardara en la tabla mayor
+        
+        //test 28/02
+        $temp = Planta::orderBy('id_planta', 'DESC')->first();
+        //if para el caso de que no haya registros
+        if($temp != null){
+            $id = $temp->id_planta + 1;
+        }else{
+            $id = 1;
+        }
+        
+        $path = public_path('imagenes/' . $id);
+        if (!File::isDirectory($path)) {
+            $r = File::makeDirectory($path, 0777, true, true);
+        }
+        //fin test 28/02
+        
         $planta = new Planta();
         //el nombre de la planta, ej: aloe vera
         $planta->nombre = $request->nombre;
@@ -45,18 +62,29 @@ class ControladorAdmin extends Controller {
         $planta->tipo_venta = 1;
         //id de la familia a la que pertenece la planta
         $planta->id_familia = $request->familia;
-        /////////////////////
+        ///////////////////////test27/02
+        //$temp = Planta::orderBy('id_planta', 'DESC')->first();
+        //$id = $temp->id_planta + 1;
         if ($request->hasFile('archivo_imagen')) {
+            //test27/02
+            /*$path = public_path('imagenes/' . $id);
+            if (!File::isDirectory($path)) {
+                $response = File::makeDirectory($path, 0777, true, true);
+
+            }*/
+            
+            
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
             //titulo, quitar espacios
             $titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
             //direccion
-            $ruta = public_path("imagenes/");
+            //$ruta = public_path("imagenes/");
+            $ruta = $path;
             //subo el archivo
             $archivo_imagen->move($ruta, $titulo_imagen);
-        }      
-        //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
+        }
+        //le asigno el titulo_imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;
         //guardo la ruta que tenia en la variable $ruta
         $planta->direccion_imagen = $ruta;
@@ -64,14 +92,15 @@ class ControladorAdmin extends Controller {
         $planta->save();
 
         $mayor = new Mayor();
-        $mayor->id_planta = $planta->id;
+        $mayor->id_planta = $planta->id; //por que solo id? mi indice se llama id_planta, recien me doy cuenta pero siempre funciono esto
         $mayor->pedido_minimo = $request->pedido_minimo;
 
         $mayor->save();
 
-        //$titulo = "Index";
-        //return redirect('index', ['titulo' => $titulo]); <- por algun motivo misterioso da error
         return redirect('index');
+        
+        
+        
     }
 
     public function formularioMenor() {
@@ -90,6 +119,22 @@ class ControladorAdmin extends Controller {
             'cantidad_stock' => 'bail|required|numeric|integer',
             'precio_unitario' => 'bail|required|numeric|integer',
         ]);
+        
+        //test 28/02
+        $temp = Planta::orderBy('id_planta', 'DESC')->first();
+        //if para el caso de que no haya registros
+        if($temp != null){
+            $id = $temp->id_planta + 1;
+        }else{
+            $id = 1;
+        }
+        
+        $path = public_path('imagenes/' . $id);
+        if (!File::isDirectory($path)) {
+            $r = File::makeDirectory($path, 0777, true, true);
+        }
+        //fin test 28/02
+        
         $planta = new Planta();
         //el nombre de la planta, ej: aloe vera
         $planta->nombre = $request->nombre;
@@ -104,10 +149,11 @@ class ControladorAdmin extends Controller {
             //titulo
             $titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
             //direccion
-            $ruta = public_path("imagenes/");
+            //$ruta = public_path("imagenes/");
+            $ruta = $path;
             //subo el archivo
-            $archivo_imagen->move($ruta, $titulo_imagen);            
-        }        
+            $archivo_imagen->move($ruta, $titulo_imagen);
+        }
         //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;
         //guardo la ruta que tenia en la variable $ruta
@@ -132,16 +178,16 @@ class ControladorAdmin extends Controller {
         $titulo = "Detalle del producto";
         return view('detalle-producto', ['titulo' => $titulo]);
     }
-    
+
     public function formularioFamilia() {
         $titulo = "Familias";
-        
+
         $familias = Familia::all();
         $plantas = Planta::all();
 
         return view('admin', compact('titulo', 'familias', 'plantas'));
     }
-    
+
     public function crearFamilia(Request $request) {
         $request->validate([
             'familia' => 'bail|required|max:100',
@@ -152,28 +198,28 @@ class ControladorAdmin extends Controller {
 
         return redirect('index');
     }
-    
-    public function borrarFamilia(Request $request){
+
+    public function borrarFamilia(Request $request) {
         $id_familia = $request->id_familia;
         //$familia = Familia::find($id_familia);
-        $familia = Familia::where('id_familia',$id_familia);
+        $familia = Familia::where('id_familia', $id_familia);
         $familia->delete();
-        
+
         return redirect('index');
     }
-    
-    public function modificarFamilia(Request $request){
+
+    public function modificarFamilia(Request $request) {
         $id_familia = $request->id_familia;
-        $familia = Familia::where('id_familia',$id_familia)->first();
-        $familia->familia = $request->nombre;        
+        $familia = Familia::where('id_familia', $id_familia)->first();
+        $familia->familia = $request->nombre;
         $familia->save();
-        
+
         return redirect('index');
     }
-    
+
     public function formularioPlanta() {
         $titulo = "Plantas";
-        
+
         $familias = Familia::all();
         $plantas = Planta::all();
 
