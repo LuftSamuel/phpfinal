@@ -74,11 +74,13 @@ class ControladorAdmin extends Controller {
 
               } */
 
-
+            //titulo original 01/03
+            $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
+            $planta->titulo_imagen = $titulo_imagen;
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
             //titulo, quitar espacios
-            $titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
+            //$titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
             //direccion
             //$ruta = public_path("imagenes/");
             $ruta = $path;
@@ -140,10 +142,13 @@ class ControladorAdmin extends Controller {
         $planta->tipo_venta = 0;
         $planta->id_familia = $request->familia;
         if ($request->hasFile('archivo_imagen')) {
+            //titulo original 01/03
+            $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
+            $planta->titulo_imagen = $titulo_imagen;
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
             //titulo
-            $titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
+            //$titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
             //direccion
             //$ruta = public_path("imagenes/");
             $ruta = $path;
@@ -152,6 +157,8 @@ class ControladorAdmin extends Controller {
             //miniatura, (intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
             $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
+            
+       
         }
         //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;
