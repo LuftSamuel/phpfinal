@@ -12,6 +12,7 @@ use Illuminate\Validation\ValidationException;
 use App\Models\Contacto;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 
 class ControladorAdmin extends Controller {
 
@@ -39,22 +40,22 @@ class ControladorAdmin extends Controller {
             'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
             'pedido_minimo' => 'bail|required|numeric|integer',
         ]);
-        
+
         //test 28/02
         $temp = Planta::orderBy('id_planta', 'DESC')->first();
         //if para el caso de que no haya registros
-        if($temp != null){
+        if ($temp != null) {
             $id = $temp->id_planta + 1;
-        }else{
+        } else {
             $id = 1;
         }
-        
+
         $path = public_path('imagenes/' . $id);
         if (!File::isDirectory($path)) {
             $r = File::makeDirectory($path, 0777, true, true);
         }
         //fin test 28/02
-        
+
         $planta = new Planta();
         //el nombre de la planta, ej: aloe vera
         $planta->nombre = $request->nombre;
@@ -67,13 +68,13 @@ class ControladorAdmin extends Controller {
         //$id = $temp->id_planta + 1;
         if ($request->hasFile('archivo_imagen')) {
             //test27/02
-            /*$path = public_path('imagenes/' . $id);
-            if (!File::isDirectory($path)) {
-                $response = File::makeDirectory($path, 0777, true, true);
+            /* $path = public_path('imagenes/' . $id);
+              if (!File::isDirectory($path)) {
+              $response = File::makeDirectory($path, 0777, true, true);
 
-            }*/
-            
-            
+              } */
+
+
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
             //titulo, quitar espacios
@@ -83,6 +84,9 @@ class ControladorAdmin extends Controller {
             $ruta = $path;
             //subo el archivo
             $archivo_imagen->move($ruta, $titulo_imagen);
+            //miniatura, (intervention image)
+            $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
+            $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
         }
         //le asigno el titulo_imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;
@@ -98,9 +102,6 @@ class ControladorAdmin extends Controller {
         $mayor->save();
 
         return redirect('index');
-        
-        
-        
     }
 
     public function formularioMenor() {
@@ -119,30 +120,25 @@ class ControladorAdmin extends Controller {
             'cantidad_stock' => 'bail|required|numeric|integer',
             'precio_unitario' => 'bail|required|numeric|integer',
         ]);
-        
-        //test 28/02
+
+        //obtengo la id de la planta que estoy por cargar
         $temp = Planta::orderBy('id_planta', 'DESC')->first();
-        //if para el caso de que no haya registros
-        if($temp != null){
+        if ($temp != null) {
             $id = $temp->id_planta + 1;
-        }else{
+        } else {
             $id = 1;
         }
-        
+        //la uso para crear una carpeta con el nombre de esa id
         $path = public_path('imagenes/' . $id);
         if (!File::isDirectory($path)) {
             $r = File::makeDirectory($path, 0777, true, true);
         }
-        //fin test 28/02
-        
+        ////
+
         $planta = new Planta();
-        //el nombre de la planta, ej: aloe vera
         $planta->nombre = $request->nombre;
-        //el tipo de venta, en este formulario siempre es 0 osea minorista
         $planta->tipo_venta = 0;
-        //id de la familia a la que pertenece la planta
         $planta->id_familia = $request->familia;
-        /////////////////////
         if ($request->hasFile('archivo_imagen')) {
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
@@ -153,6 +149,9 @@ class ControladorAdmin extends Controller {
             $ruta = $path;
             //subo el archivo
             $archivo_imagen->move($ruta, $titulo_imagen);
+            //miniatura, (intervention image)
+            $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
+            $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
         }
         //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;

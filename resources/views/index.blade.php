@@ -27,7 +27,7 @@
         @foreach($plantas as $planta) <!-- todavia no tengo imagenes para poner -->
         <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
             <figure class="effect-ming tm-video-item">
-                <img src="{{asset('imagenes/' . $planta->id_planta . '/' . $planta->titulo_imagen) }}" class="img-fluid" style="width:320px;height:240px;"> 
+                <img src="{{asset('imagenes/' . $planta->id_planta . '/' . 'miniatura.jpg') }}" class="img-fluid" style="width:320px;height:240px;"> 
                 <figcaption class="d-flex align-items-center justify-content-center">
                     <h2>{{$planta->nombre}}</h2>
                     <!-- con Str::slug reemplazo el caracter de espacio en blanco en la url -->
