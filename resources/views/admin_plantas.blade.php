@@ -9,7 +9,8 @@
                     <th scope="col">Tipo Venta</th>
                     <th scope="col">Familia</th>
                     <th scope="col">Articulo</th>
-                    <th scope="col">Imagen</th>
+                    <th scope="col">Editar</th>
+                    <th scope="col">Eliminar</th>
                 </tr>
             </thead>
             <tbody>
@@ -41,10 +42,14 @@
                     </td>
                     
                     <td>
-                        <!-- la idea aca es que con apretar el boton pueda cambiar la imagen del
-                        producto, por ahora lo dejo asi por que primero tengo que terminar bien
-                        lo de subir y mostrar imagenes que tenia conflictos, y le faltan las miniaturas-->
-                        <button class="btn btn-primary" type="button">POR AHORA NO HACE NADA</button>
+                        <form action="@if($planta->tipo_venta == 0) {{route('admin.menor')}} @else {{route('admin.mayor')}}  @endif">
+                            <input type="hidden" value="{{$planta->id_planta}}" name="id">
+                            <button type="submit">Modificar</button>
+                        </form>                      
+                    </td>
+
+                    <td>
+                        <button>Eliminar</button>
                     </td>
                     
                 </tr>

@@ -25,12 +25,19 @@ class ControladorAdmin extends Controller {
         return view('admin', compact('titulo', 'mensajes'));
     }
 
-    public function formularioMayor() {
+    public function formularioMayor(Request $request) {
         $titulo = "Articulo al por mayor";
-        $plantas = planta::all();
         $familias = Familia::all();
         $mayores = Mayor::all();
         $menores = Menor::all();
+
+        if($request->filled('id')){
+            $modificar_planta = Planta::find($request->id);
+            $modificar_mayor = Mayor::where('id_planta', $request->id)->first();
+            return view('admin', compact('titulo', 'modificar_planta', 'familias', 'modificar_mayor'));
+        }else{
+            $plantas = planta::all();
+        }       
         return view('admin', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
     }
 
@@ -106,12 +113,19 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function formularioMenor() {
-        $titulo = "Articulo al por menor";
-        $plantas = planta::all();
+    public function formularioMenor(Request $request) {
+        $titulo = "Articulo al por menor";        
         $familias = Familia::all();
         $mayores = Mayor::all();
         $menores = Menor::all();
+
+        if($request->filled('id')){
+            $modificar_planta = Planta::find($request->id);
+            $modificar_menor = Menor::where('id_planta', $request->id)->first();
+            return view('admin', compact('titulo', 'modificar_planta', 'familias', 'modificar_menor'));
+        }else{
+            $plantas = planta::all();
+        }
         return view('admin', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
     }
 
@@ -230,6 +244,123 @@ class ControladorAdmin extends Controller {
         $plantas = Planta::all();
 
         return view('admin', compact('titulo', 'familias', 'plantas'));
+    }
+    
+    public function modificarMenor(Request $request) {
+        //me falta eliminar la imagen e insertar la nueva o reemplazar
+        
+        $titulo = "Articulo al por menor";
+        $request->validate([
+            'nombre' => 'bail|required|max:100',
+            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
+            'cantidad_stock' => 'bail|required|numeric|integer',
+            'precio_unitario' => 'bail|required|numeric|integer',
+        ]);
+        //obtengo la id de la planta que estoy por modificar
+        $id = $request->id;
+        $planta = Planta::find($id);
+        //la uso para crear una carpeta con el nombre de esa id
+        $path = public_path('imagenes/' . $id);
+        if (!File::isDirectory($path)) {
+            $r = File::makeDirectory($path, 0777, true, true);
+        }
+        $planta->nombre = $request->nombre;
+        $planta->tipo_venta = 0;
+        $planta->id_familia = $request->familia;
+        if ($request->hasFile('archivo_imagen')) {
+            
+            File::delete($path . '/' . $planta->titulo_imagen);
+            File::delete($path . '/' . 'miniatura.jpg');
+
+            //titulo original 01/03
+            $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
+            $planta->titulo_imagen = $titulo_imagen;
+            //archivo, el que se sube a la carpeta imagenes, no a la bd
+            $archivo_imagen = $request->file('archivo_imagen');
+            //titulo
+            //$titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
+            //direccion
+            //$ruta = public_path("imagenes/");
+            $ruta = $path;
+            //subo el archivo
+            $archivo_imagen->move($ruta, $titulo_imagen);
+            //miniatura, (intervention image)
+            $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
+            $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
+            
+       
+        }
+        //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
+        $planta->titulo_imagen = $titulo_imagen;
+        //guardo la ruta que tenia en la variable $ruta
+        $planta->direccion_imagen = $ruta;
+
+        $planta->save();
+
+        $menor = Menor::where('id_planta', $id)->first();
+        $menor->cantidad_stock = $request->cantidad_stock;
+        $menor->precio_unitario = $request->precio_unitario;
+
+        $menor->save();
+
+        //$titulo = "Articulo al por menor";
+        //return view('crear_articulo_menor', ['titulo' => $titulo]);
+        return redirect('index');
+    }
+    
+    public function modificarMayor(Request $request){
+        $request->validate([
+            'nombre' => 'bail|required|max:100',
+            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
+            'pedido_minimo' => 'bail|required|numeric|integer',
+        ]);
+        //obtengo la id de la planta que estoy por modificar
+        $id = $request->id;
+        $planta = Planta::find($id);
+        //la uso para crear una carpeta con el nombre de esa id
+        $path = public_path('imagenes/' . $id);
+        if (!File::isDirectory($path)) {
+            $r = File::makeDirectory($path, 0777, true, true);
+        }
+        $planta->nombre = $request->nombre;
+        $planta->tipo_venta = 1;
+        $planta->id_familia = $request->familia;
+        if ($request->hasFile('archivo_imagen')) {
+            
+            File::delete($path . '/' . $planta->titulo_imagen);
+            File::delete($path . '/' . 'miniatura.jpg');
+
+            //titulo original 01/03
+            $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
+            $planta->titulo_imagen = $titulo_imagen;
+            //archivo, el que se sube a la carpeta imagenes, no a la bd
+            $archivo_imagen = $request->file('archivo_imagen');
+            //titulo
+            //$titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
+            //direccion
+            //$ruta = public_path("imagenes/");
+            $ruta = $path;
+            //subo el archivo
+            $archivo_imagen->move($ruta, $titulo_imagen);
+            //miniatura, (intervention image)
+            $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
+            $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
+            
+       
+        }
+        //le asigno el titulo_imagen que tenia arriba y use para subir a la carpeta imagenes
+        $planta->titulo_imagen = $titulo_imagen;
+        //guardo la ruta que tenia en la variable $ruta
+        $planta->direccion_imagen = $ruta;
+
+        $planta->save();
+
+        $mayor = Mayor::where('id_planta', $id)->first();
+        $mayor->pedido_minimo = $request->pedido_minimo;
+
+        $mayor->save();
+
+        return redirect('index');
     }
 
 }

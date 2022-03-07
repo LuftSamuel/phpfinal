@@ -4,7 +4,7 @@
 
         <div style="margin: auto; max-width: 600px; width: 100%; padding: 2em;">
             <h2>Crear nueva familia</h2>
-            <form method="post" enctype="multipart/form-data" action={{route('admin.familia.crear')}}>
+            <form method="post" enctype="multipart/form-data" action={{ route('admin.familia.crear') }}>
                 @csrf
 
                 <!-- input nombre de la familia -->
@@ -14,7 +14,7 @@
                 </div><br>                  
                 <!-- boton tipo submit -->
                 <div class="col-12">
-                    <button class="btn btn-primary" type="submit">Subir</button>
+                    <button class="btn btn-primary" type="submit">Crear</button>
                 </div>
                 @if ($errors->any())
                 <div class="alert alert-danger">
