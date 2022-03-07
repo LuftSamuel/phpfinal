@@ -95,7 +95,7 @@ class ControladorAdmin extends Controller {
             $archivo_imagen->move($ruta, $titulo_imagen);
             //miniatura, (intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
-            $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
+            $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
         }
         //le asigno el titulo_imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;
@@ -171,6 +171,7 @@ class ControladorAdmin extends Controller {
             //miniatura, (intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
             $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
+            $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
             
        
         }
@@ -286,7 +287,7 @@ class ControladorAdmin extends Controller {
             $archivo_imagen->move($ruta, $titulo_imagen);
             //miniatura, (intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
-            $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
+            $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
             
        
         }
@@ -344,7 +345,7 @@ class ControladorAdmin extends Controller {
             $archivo_imagen->move($ruta, $titulo_imagen);
             //miniatura, (intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
-            $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
+            $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
             
        
         }
