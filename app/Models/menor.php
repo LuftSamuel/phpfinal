@@ -10,4 +10,5 @@ class Menor extends Model
     public $timestamps = false;
     use HasFactory;
     protected $table = 'menor';
+    protected $primaryKey = 'id_planta';
 }

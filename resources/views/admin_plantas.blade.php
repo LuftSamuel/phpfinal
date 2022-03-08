@@ -49,7 +49,11 @@
                     </td>
 
                     <td>
-                        <button>Eliminar</button>
+
+                    <form action="{{route('admin.planta.eliminar')}}" onsubmit="return confirm('Seguro que deseas eliminar este articulo?');">
+                            <input type="hidden" value="{{$planta->id_planta}}" name="id" >
+                            <button type="submit">Eliminar</button>
+                        </form>
                     </td>
                     
                 </tr>

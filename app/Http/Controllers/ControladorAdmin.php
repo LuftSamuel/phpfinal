@@ -13,6 +13,7 @@ use App\Models\Contacto;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\DB;
 
 class ControladorAdmin extends Controller {
 
@@ -47,15 +48,18 @@ class ControladorAdmin extends Controller {
             'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
             'pedido_minimo' => 'bail|required|numeric|integer',
         ]);
+        $planta = new Planta();
+        $planta->nombre = $request->nombre;
+        $planta->tipo_venta = 1;
+        $planta->id_familia = $request->familia;
 
-        //test 28/02
-        $temp = Planta::orderBy('id_planta', 'DESC')->first();
-        //if para el caso de que no haya registros
-        if ($temp != null) {
-            $id = $temp->id_planta + 1;
-        } else {
-            $id = 1;
-        }
+        $siguiente_id = DB::table('information_schema.TABLES')
+            ->select('AUTO_INCREMENT')
+            ->where('TABLE_NAME', "planta")
+            ->get();
+        $s = $siguiente_id[1]; //el numero esta ahi dentro pero no se como sacarlo
+        $s = $s->AUTO_INCREMENT;    
+        $id = preg_replace('/\D/', '', $s);
 
         $path = public_path('imagenes/' . $id);
         if (!File::isDirectory($path)) {
@@ -63,13 +67,7 @@ class ControladorAdmin extends Controller {
         }
         //fin test 28/02
 
-        $planta = new Planta();
-        //el nombre de la planta, ej: aloe vera
-        $planta->nombre = $request->nombre;
-        //el tipo de venta, en este formulario siempre es 1 osea mayorista
-        $planta->tipo_venta = 1;
-        //id de la familia a la que pertenece la planta
-        $planta->id_familia = $request->familia;
+        
         ///////////////////////test27/02
         //$temp = Planta::orderBy('id_planta', 'DESC')->first();
         //$id = $temp->id_planta + 1;
@@ -105,7 +103,7 @@ class ControladorAdmin extends Controller {
         $planta->save();
 
         $mayor = new Mayor();
-        $mayor->id_planta = $planta->id; //por que solo id? mi indice se llama id_planta, recien me doy cuenta pero siempre funciono esto
+        $mayor->id_planta = $planta->id_planta;
         $mayor->pedido_minimo = $request->pedido_minimo;
 
         $mayor->save();
@@ -136,14 +134,34 @@ class ControladorAdmin extends Controller {
             'cantidad_stock' => 'bail|required|numeric|integer',
             'precio_unitario' => 'bail|required|numeric|integer',
         ]);
+        $planta = new Planta();
+        $planta->nombre = $request->nombre;
+        $planta->tipo_venta = 0;
+        $planta->id_familia = $request->familia;
+
+        /*
+        SELECT AUTO_INCREMENT
+        FROM information_schema.TABLES
+        WHERE TABLE_SCHEMA = "yourDatabaseName"
+        AND TABLE_NAME = "yourTableName"
+        */
+
+        $siguiente_id = DB::table('information_schema.TABLES')
+            ->select('AUTO_INCREMENT')
+            ->where('TABLE_NAME', "planta")
+            ->get();
+        $s = $siguiente_id[1];
+        $s = $s->AUTO_INCREMENT;    
+        $id = preg_replace('/\D/', '', $s);
 
         //obtengo la id de la planta que estoy por cargar
-        $temp = Planta::orderBy('id_planta', 'DESC')->first();
-        if ($temp != null) {
+        /*$temp = Planta::orderBy('id_planta', 'DESC')->first();
+        if ($temp != null) { ///////////////esto da problemas 
             $id = $temp->id_planta + 1;
         } else {
+            //esto no funciona
             $id = 1;
-        }
+        }*/
         //la uso para crear una carpeta con el nombre de esa id
         $path = public_path('imagenes/' . $id);
         if (!File::isDirectory($path)) {
@@ -151,10 +169,7 @@ class ControladorAdmin extends Controller {
         }
         ////
 
-        $planta = new Planta();
-        $planta->nombre = $request->nombre;
-        $planta->tipo_venta = 0;
-        $planta->id_familia = $request->familia;
+        
         if ($request->hasFile('archivo_imagen')) {
             //titulo original 01/03
             $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
@@ -170,7 +185,6 @@ class ControladorAdmin extends Controller {
             $archivo_imagen->move($ruta, $titulo_imagen);
             //miniatura, (intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
-            $miniatura->save($ruta . '/' . 'miniatura.jpg', 60);
             $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
             
        
@@ -183,7 +197,7 @@ class ControladorAdmin extends Controller {
         $planta->save();
 
         $menor = new Menor();
-        $menor->id_planta = $planta->id;
+        $menor->id_planta = $planta->id_planta;
         $menor->cantidad_stock = $request->cantidad_stock;
         $menor->precio_unitario = $request->precio_unitario;
 
@@ -271,7 +285,7 @@ class ControladorAdmin extends Controller {
         if ($request->hasFile('archivo_imagen')) {
             
             File::delete($path . '/' . $planta->titulo_imagen);
-            File::delete($path . '/' . 'miniatura.jpg');
+            File::delete($path . '/' . 'm' . $planta->titulo_imagen);
 
             //titulo original 01/03
             $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
@@ -329,7 +343,7 @@ class ControladorAdmin extends Controller {
         if ($request->hasFile('archivo_imagen')) {
             
             File::delete($path . '/' . $planta->titulo_imagen);
-            File::delete($path . '/' . 'miniatura.jpg');
+            File::delete($path . '/' . 'm' . $planta->titulo_imagen);
 
             //titulo original 01/03
             $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
@@ -361,6 +375,25 @@ class ControladorAdmin extends Controller {
 
         $mayor->save();
 
+        return redirect('index');
+    }
+
+    public function eliminarPlanta(Request $request){
+        $id = $request->id;
+        $planta = Planta::find($id);
+        $path = public_path('imagenes/' . $id);
+        File::delete($path . '/' . $planta->titulo_imagen);
+        File::delete($path . '/' . 'm' . $planta->titulo_imagen);        
+        if (File::exists($path)) File::deleteDirectory($path);      
+
+        if($planta->tipo_venta == 0){
+            $menor = Menor::where('id_planta', $id)->first()->delete();
+        }else{
+            $mayor = Mayor::where('id_planta', $id)->first()->delete();
+        }       
+
+        $planta = Planta::find($id)->delete();
+        
         return redirect('index');
     }
 

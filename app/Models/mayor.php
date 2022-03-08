@@ -10,4 +10,5 @@ class Mayor extends Model
     public $timestamps = false;
     use HasFactory;
     protected $table = 'mayor';
+    protected $primaryKey = 'id_planta';
 }
