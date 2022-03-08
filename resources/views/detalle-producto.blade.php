@@ -1,7 +1,7 @@
 @include('cabecera')
     
 <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="{{url('assets/img/hero')}}.jpg">
-        <form class="d-flex tm-search-form">
+        <form class="d-flex tm-search-form" action="{{ route('busqueda') }}">
             <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success tm-search-btn" type="submit">
                 <i class="fas fa-search"></i>
@@ -11,17 +11,13 @@
 
     <div class="container-fluid tm-container-content tm-mt-60">
         <div class="row mb-4">
-            @foreach($planta as $plant)
-            <h2 class="col-12 tm-text-primary">{{ $plant->nombre }}</h2>
-            @endforeach
+            <h2 class="col-12 tm-text-primary">{{ $planta->nombre }}</h2>
         </div>
         <div class="row tm-mb-90">            
             <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
                 <!-- sin el foreach no podia llegar a las distintas variables que estan
                 contenidas en planta, array con 1 elemento cambiarlo despues-->
-                @foreach($planta as $plant)
-                <img src="{{asset('imagenes/' . $plant->id_planta . '/' . $plant->titulo_imagen) }}" alt="Image" class="img-fluid">
-                @endforeach
+                <img src="{{asset('imagenes/' . $planta->id_planta . '/' . $planta->titulo_imagen) }}" alt="Image" class="img-fluid">
             </div>
             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
                 <div class="tm-bg-gray tm-video-details">
@@ -58,25 +54,24 @@
         </div>
         <div class="row mb-4">
             <h2 class="col-12 tm-text-primary">
-                Related Photos
+                Articulos relacionados
             </h2>
         </div>
         
         <div class="row mb-3 tm-gallery">
             
+            @foreach($relacionados as $r)
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
-                <figure class="effect-ming tm-video-item">
-                    <img src="img/img-08.jpg" alt="Image" class="img-fluid">
-                    <figcaption class="d-flex align-items-center justify-content-center">
-                        <h2>New York</h2>
-                        <a href="#">View more</a>
-                    </figcaption>                    
-                </figure>
-                <div class="d-flex justify-content-between tm-text-gray">
-                    <span class="tm-text-gray-light">4 Sep 2020</span>
-                    <span>11,300 views</span>
-                </div>
-            </div>   
+            <figure class="effect-ming tm-video-item">
+                <img src="{{asset('imagenes/' . $r->id_planta . '/' . 'm' . $r->titulo_imagen) }}" class="img-fluid" style="width:320px;height:240px;"> 
+                <figcaption class="d-flex align-items-center justify-content-center">
+                    <h2>{{$r->nombre}}</h2>
+                    <!-- con Str::slug reemplazo el caracter de espacio en blanco en la url -->
+                    <a href="{{route('individual', Str::slug($r->id_planta))}}">Ver mas</a>
+                </figcaption>                    
+            </figure>
+            </div>
+            @endforeach   
             
         </div> <!-- row -->
     </div> <!-- container-fluid, tm-container-content -->

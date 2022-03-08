@@ -25,7 +25,7 @@ class ControladorPrincipal extends Controller
     public function busqueda(Request $request){
         $titulo = "Inicio";
         $parametro = $request->buscar;
-        $plantas = Planta::where('nombre','like','%' . $parametro . '%')->paginate(4); //resultado
+        $plantas = Planta::where('nombre','like','%' . $parametro . '%')->paginate(4);
         $familias = Familia::all();
         $mayores = Mayor::all();
         $menores = Menor::all();
@@ -36,10 +36,14 @@ class ControladorPrincipal extends Controller
     }
     
     public function detalleProducto($id){ //$id es el parametro que recibo de la ruta
-        //ese $producto que recibo es solo el nombre de la imagen sin extension
         $titulo = "Detalle producto";
-        $planta = Planta::where('id_planta',$id)->get();
-        //dd($planta);
-        return view('detalle-producto', compact('titulo','planta'));
+        $planta = Planta::find($id);
+        
+        //obtengo plantas con el mismo tipo de venta
+        $relacionados = Planta::where('tipo_venta', $planta->tipo_venta)
+        //excluyo la planta actual
+        ->where('id_planta', '<>', $planta->id_planta)->paginate(8);
+
+        return view('detalle-producto', compact('titulo','planta','relacionados'));
     }
 }
