@@ -16,7 +16,7 @@
                 <div class="col-12">
                     <button class="btn btn-primary" type="submit">Crear</button>
                 </div>
-                @if ($errors->any())
+                @if ($errors->has('familia'))
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)
@@ -59,15 +59,7 @@
                 <div class="col-12">
                     <button class="btn btn-primary" type="submit">Eliminar</button>
                 </div>
-                @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-                @endif
+               
             </form>
         </div>
         
@@ -95,7 +87,7 @@
                 <div class="col-12">
                     <button class="btn btn-primary" type="submit">Modificar</button>
                 </div>
-                @if ($errors->any())
+                @if ($errors->has('nombre'))
                 <div class="alert alert-danger">
                     <ul>
                         @foreach ($errors->all() as $error)

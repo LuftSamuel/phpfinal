@@ -61,42 +61,40 @@
         </div>
         <div class="col-lg-4 col-12 mb-5">
             <div class="tm-address-col">
-                <h2 class="tm-text-primary mb-5">Our Address</h2>
-                <p class="tm-mb-50">Quisque eleifend mi et nisi eleifend pretium. Duis porttitor accumsan arcu id rhoncus. Praesent fermentum venenatis ipsum, eget vestibulum purus. </p>
-                <p class="tm-mb-50">Nulla ut scelerisque elit, in fermentum ante. Aliquam congue mattis erat, eget iaculis enim posuere nec. Quisque risus turpis, tempus in iaculis.</p>
-                <address class="tm-text-gray tm-mb-50">
-                    120-240 Fusce eleifend varius tempus<br>
-                    Duis consectetur at ligula 10660
-                </address>
+                <h2 class="tm-text-primary mb-5">Quienes somos</h2>
+                <p class="tm-mb-50">Somos un pequeño emprendimiento familiar que se dedica al cultivo y venta de plantas de distinto 
+                    tipo al por mayor y por menor.<br><br>Vendemos articulos al por menor casi siempre con fines decorativos, pero tambien
+                     se incluyen arboles frutales por unidad (orquideas, helechos, cactus, mandarina, ciruela, etc).<br><br>
+                     Dentro la categoria de articulos al por mayor encontramos plantas como pino, kiri, eucalipto y
+                      tambien mandarina, limon, ciruela, etc. (siempre en grandes cantidades).<br><br>
+                    Tambien es posible pedir mediante el formulario de contacto articulos que normalmente se venderian solo al por menor
+                     como por ejemplo, 100 orquideas, 50 helechos, etc.</p>
+                <p class="tm-mb-50">Nos encontramos sobre la ruta 12 poco antes del parador de 3 de Mayo.</p>
+
                 <ul class="tm-contacts">
                     <li>
                         <a href="#" class="tm-text-gray">
                             <i class="fas fa-envelope"></i>
-                            Email: info@company.com
+                            Email: info@cactusinc.com
                         </a>
                     </li>
                     <li>
                         <a href="#" class="tm-text-gray">
                             <i class="fa fa-phone"></i>
-                            Tel: 010-020-0340
+                            Tel: 3743501512
                         </a>
                     </li>
-                    <li>
-                        <a href="#" class="tm-text-gray">
-                            <i class="fas fa-globe"></i>
-                            URL: www.company.com
-                        </a>
-                    </li>
+                    
                 </ul>
             </div>                
         </div>
         <div class="col-lg-4 col-12">
-            <h2 class="tm-text-primary mb-5">Our Location</h2>
+            <h2 class="tm-text-primary mb-5">Nuestra ubicacion</h2>
             <!-- Map -->
             <div class="mapouter mb-4">
                 <div class="gmap-canvas">
                     <iframe width="100%" height="520" id="gmap-canvas"
-                            src="https://maps.google.com/maps?q=Av.+L%C3%BAcio+Costa,+Rio+de+Janeiro+-+RJ,+Brazil&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d14245.184641588643!2d-54.9052557!3d-26.798697!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f8293e358f16a5%3A0xea36780eaf44dc19!2sParador%20Tres%20De%20Mayo.%20Garuhape%20Misiones%20Argentina!5e0!3m2!1ses!2sar!4v1646859118260!5m2!1ses!2sar"
                             frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
                 </div>
             </div>               

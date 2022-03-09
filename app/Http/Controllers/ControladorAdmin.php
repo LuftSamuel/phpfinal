@@ -235,6 +235,9 @@ class ControladorAdmin extends Controller {
     }
 
     public function borrarFamilia(Request $request) {
+        $request->validate([
+            'familia' => 'required',
+        ]);
         $id_familia = $request->id_familia;
         //$familia = Familia::find($id_familia);
         $familia = Familia::where('id_familia', $id_familia);
@@ -244,6 +247,9 @@ class ControladorAdmin extends Controller {
     }
 
     public function modificarFamilia(Request $request) {
+        $request->validate([
+            'nombre' => 'bail|required|max:100',
+        ]);
         $id_familia = $request->id_familia;
         $familia = Familia::where('id_familia', $id_familia)->first();
         $familia->familia = $request->nombre;

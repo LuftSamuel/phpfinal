@@ -15,40 +15,51 @@
         </div>
         <div class="row tm-mb-90">            
             <div class="col-xl-8 col-lg-7 col-md-6 col-sm-12">
-                <!-- sin el foreach no podia llegar a las distintas variables que estan
-                contenidas en planta, array con 1 elemento cambiarlo despues-->
                 <img src="{{asset('imagenes/' . $planta->id_planta . '/' . $planta->titulo_imagen) }}" alt="Image" class="img-fluid">
             </div>
             <div class="col-xl-4 col-lg-5 col-md-6 col-sm-12">
                 <div class="tm-bg-gray tm-video-details">
-                    <p class="mb-4">
-                        Please support us by making <a href="https://paypal.me/templatemo" target="_parent" rel="sponsored">a PayPal donation</a>. Nam ex nibh, efficitur eget libero ut, placerat aliquet justo. Cras nec varius leo.
-                    </p>
-                    <div class="text-center mb-5">
-                        <a href="#" class="btn btn-primary tm-btn-big">Download</a>
-                    </div>                    
-                    <div class="mb-4 d-flex flex-wrap">
-                        <div class="mr-4 mb-2">
-                            <span class="tm-text-gray-dark">Dimension: </span><span class="tm-text-primary">1920x1080</span>
-                        </div>
-                        <div class="mr-4 mb-2">
-                            <span class="tm-text-gray-dark">Format: </span><span class="tm-text-primary">JPG</span>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <h3 class="tm-text-gray-dark mb-3">License</h3>
-                        <p>Free for both personal and commercial use. No need to pay anything. No need to make any attribution.</p>
-                    </div>
-                    <div>
-                        <h3 class="tm-text-gray-dark mb-3">Tags</h3>
-                        <a href="#" class="tm-text-primary mr-4 mb-2 d-inline-block">Cloud</a>
-                        <a href="#" class="tm-text-primary mr-4 mb-2 d-inline-block">Bluesky</a>
-                        <a href="#" class="tm-text-primary mr-4 mb-2 d-inline-block">Nature</a>
-                        <a href="#" class="tm-text-primary mr-4 mb-2 d-inline-block">Background</a>
-                        <a href="#" class="tm-text-primary mr-4 mb-2 d-inline-block">Timelapse</a>
-                        <a href="#" class="tm-text-primary mr-4 mb-2 d-inline-block">Night</a>
-                        <a href="#" class="tm-text-primary mr-4 mb-2 d-inline-block">Real Estate</a>
-                    </div>
+
+                    <h2 class="tm-text-primary">
+                        {{ $planta->nombre }}
+                    </h2><br><br>
+
+                        @if($planta->tipo_venta == 0)
+                            <h4 class="tm-text-primary">
+                                {{ "Articulo al por menor" }}
+                            </h4><br>
+                            <h4 class="tm-text-primary">
+                                {{ "Genero: " . $familia->familia }}
+                            </h4><br>
+                            <h6 class="tm-text-primary">
+                                {{ "Todos los articulos al por menor listados estan dispibles
+                                    para la venta en nuestro puesto. Si le interesa realizar un
+                                    pedido especial al por mayor de este articulo utilice la pestaña
+                                    de contacto y describa lo que le interesa a traves del mensaje."
+                                }}
+                            </h6><br>
+                            <h4 class="tm-text-primary">
+                                {{ "Precio unitario: " . $datosExtra->precio_unitario }}
+                            </h4>
+                        @else
+                            <h4 class="tm-text-primary">
+                                {{ "Articulo al por mayor" }}
+                            </h4><br>
+                            <h4 class="tm-text-primary">
+                                {{ "Genero: " . $familia->familia }}
+                            </h4><br>
+                            <h6 class="tm-text-primary">
+                                {{ "Todos los articulos al por mayor se venden solo a pedido,
+                                    para realizar tu pedido ve a la pestaña contacto y simplemente
+                                    describe que te interesa comprar."
+                                }}
+                            </h6><br>
+                            <h4 class="tm-text-primary">
+                                {{ "Pedido minimo: " . $datosExtra->pedido_minimo }}
+                            </h4><br>
+                        @endif
+                        <a class="btn btn-primary" href="{{ route('contacto.mostrar') }}">Contacto</a>
+
                 </div>
             </div>
         </div>

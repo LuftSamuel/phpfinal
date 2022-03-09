@@ -17,7 +17,7 @@
         </h2>
         <div class="col-6 d-flex justify-content-end align-items-center">
             <form action="" class="tm-text-primary">
-                Page <input type="text" value="1" size="1" class="tm-input-paging tm-text-primary"> of 200
+                Pagina <input type="text" href="{{$plantas->url(2)}}" value="{{$plantas->currentPage()}}" size="1" class="tm-input-paging tm-text-primary"> de {{$plantas->lastPage()}}
             </form>
         </div>
     </div>
@@ -46,9 +46,9 @@
             
             
             @if($plantas->onFirstPage())
-            <a class="btn btn-primary tm-btn-prev mb-2 disabled">Previous</a>
+            <a class="btn btn-primary tm-btn-prev mb-2 disabled">Anterior</a>
             @else
-            <a href="{{ $plantas->previousPageUrl() }}" class="btn btn-primary tm-btn-prev mb-2">Previous</a>
+            <a href="{{ $plantas->previousPageUrl() }}" class="btn btn-primary tm-btn-prev mb-2">Anterior</a>
             @endif
             
             @if($plantas->onFirstPage())
@@ -98,9 +98,9 @@
             @endif
             
             @if($plantas->onLastPage())
-            <a class="btn btn-primary tm-btn-next disabled">Next Page</a>
+            <a class="btn btn-primary tm-btn-next disabled">Siguiente</a>
             @else
-            <a href="{{ $plantas->nextPageUrl() }}" class="btn btn-primary tm-btn-next">Next Page</a>
+            <a href="{{ $plantas->nextPageUrl() }}" class="btn btn-primary tm-btn-next">Siguiente</a>
             @endif
             
             

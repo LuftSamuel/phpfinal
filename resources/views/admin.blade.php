@@ -53,23 +53,23 @@
                     <ul class="nav" id="main-menu">
                         
                         <li class="{{ (Route::current()->getName() == "admin.index") ? "active-link" : "" }}">
-                            <a href="{{route('admin.index')}}" ><i class="fa fa-desktop "></i>Inicio</a>
+                            <a href="{{route('admin.index')}}" ><i class="fa fa-file-o"></i>Inicio</a>
                         </li>
 
                         <li class="{{ (Route::current()->getName() == "admin.mayor") ? "active-link" : "" }}">
-                            <a href="{{route('admin.mayor')}}" ><i class="fa fa-desktop "></i>Crear Mayorista</a>
+                            <a href="{{route('admin.mayor')}}" ><i class="fa fa-tree"></i>Crear Mayorista</a>
                         </li>
 
                         <li class="{{ (Route::current()->getName() == "admin.menor") ? "active-link" : "" }}">
-                            <a href="{{route('admin.menor')}}"><i class="fa fa-table "></i>Crear Minorista</a>
+                            <a href="{{route('admin.menor')}}"><i class="fa fa-pagelines"></i>Crear Minorista</a>
                         </li>
                         
                         <li class="{{ (Route::current()->getName() == "admin.familia") ? "active-link" : "" }}">
-                            <a href="{{route('admin.familia')}}"><i class="fa fa-table "></i>Administrar Familias</a>
+                            <a href="{{route('admin.familia')}}"><i class="fa fa-cog"></i>Administrar Familias</a>
                         </li>
                         
                         <li class="{{ (Route::current()->getName() == "admin.planta") ? "active-link" : "" }}">
-                            <a href="{{route('admin.planta')}}"><i class="fa fa-table "></i>Administrar Plantas</a>
+                            <a href="{{route('admin.planta')}}"><i class="fa fa-cog"></i>Administrar Plantas</a>
                         </li>
 
                     </ul>
@@ -94,7 +94,7 @@
         <div class="footer">
             <div class="row">
                 <div class="col-lg-12" >
-                    &copy;  2014 yourdomain.com | Design by: <a href="http://binarytheme.com" style="color:#fff;" target="_blank">www.binarytheme.com</a>
+                    
                 </div>
             </div>
         </div>
