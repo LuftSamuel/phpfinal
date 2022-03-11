@@ -11,15 +11,35 @@
 
 <div class="container-fluid tm-container-content tm-mt-60">
 
-    <div class="row mb-4">
-        <h2 class="col-6 tm-text-primary">
-            Ultimos Articulos
-        </h2>
-        <div class="col-6 d-flex justify-content-end align-items-center">
-            <form action="" class="tm-text-primary">
-                Pagina <input type="text" href="{{$plantas->url(2)}}" value="{{$plantas->currentPage()}}" size="1" class="tm-input-paging tm-text-primary"> de {{$plantas->lastPage()}}
-            </form>
+    <div class="container">
+        
+        <div class="row">
+
+
+                <div class="col mx-auto">
+                    <h2 class="tm-text-primary">
+                        Ultimos Articulos               
+                    </h2>
+                </div>
+
+                <div class="col">
+                    <label class=""><input type="checkbox" value="x"> Por Unidad</label>
+                </div>
+
+                <div class="col">
+                    <label><input type="checkbox" value="y"> Al Por Mayor</label>
+                </div>
+
+           
+                
+            <div class="col">
+                <form action="" class="tm-text-primary">
+                    Pagina <input type="text" href="{{$plantas->url(2)}}" value="{{$plantas->currentPage()}}" size="1" class="tm-input-paging tm-text-primary"> de {{$plantas->lastPage()}}
+                </form>
+            </div>
+
         </div>
+
     </div>
 
     <div class="row tm-mb-90 tm-gallery"> <!-- desde aca -->

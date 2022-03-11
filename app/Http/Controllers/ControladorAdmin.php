@@ -29,20 +29,20 @@ class ControladorAdmin extends Controller {
     public function formularioMayor(Request $request) {
         $titulo = "Articulo al por mayor";
         $familias = Familia::all();
-        $mayores = Mayor::all();
-        $menores = Menor::all();
+        //$mayores = Mayor::all();
+        //$menores = Menor::all();
 
         if($request->filled('id')){
             $modificar_planta = Planta::find($request->id);
             $modificar_mayor = Mayor::where('id_planta', $request->id)->first();
             return view('admin', compact('titulo', 'modificar_planta', 'familias', 'modificar_mayor'));
         }else{
-            $plantas = planta::all();
+            return view('admin', compact('titulo', 'familias'));
         }       
-        return view('admin', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
+        
     }
 
-    public function crearMayor(Request $request) { //con el request recibo toda la info del formulario
+    public function crearMayor(Request $request) {
         $request->validate([
             'nombre' => 'bail|required|max:100',
             'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
@@ -53,45 +53,39 @@ class ControladorAdmin extends Controller {
         $planta->tipo_venta = 1;
         $planta->id_familia = $request->familia;
 
+        /*
+        SELECT AUTO_INCREMENT
+        FROM information_schema.TABLES
+        WHERE TABLE_SCHEMA = "yourDatabaseName"
+        AND TABLE_NAME = "yourTableName"
+        */
+
+        //obtengo la id de la planta que estoy por cargar
         $siguiente_id = DB::table('information_schema.TABLES')
             ->select('AUTO_INCREMENT')
             ->where('TABLE_NAME', "planta")
             ->get();
-        $s = $siguiente_id[1]; //el numero esta ahi dentro pero no se como sacarlo
+        $s = $siguiente_id[1]; 
         $s = $s->AUTO_INCREMENT;    
-        $id = preg_replace('/\D/', '', $s);
+        $id = preg_replace('/\D/', '', $s); //seguro hay alguna forma mas sencilla de obtener ese numero
 
+        //la uso para crear una carpeta con el nombre de esa id
         $path = public_path('imagenes/' . $id);
         if (!File::isDirectory($path)) {
             $r = File::makeDirectory($path, 0777, true, true);
         }
-        //fin test 28/02
 
-        
-        ///////////////////////test27/02
-        //$temp = Planta::orderBy('id_planta', 'DESC')->first();
-        //$id = $temp->id_planta + 1;
         if ($request->hasFile('archivo_imagen')) {
-            //test27/02
-            /* $path = public_path('imagenes/' . $id);
-              if (!File::isDirectory($path)) {
-              $response = File::makeDirectory($path, 0777, true, true);
-
-              } */
-
-            //titulo original 01/03
+            //titulo original
             $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
             $planta->titulo_imagen = $titulo_imagen;
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
-            //titulo, quitar espacios
-            //$titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
-            //direccion
-            //$ruta = public_path("imagenes/");
-            $ruta = $path;
+            //$ruta
+            $ruta = $path; //usar una sola variable
             //subo el archivo
             $archivo_imagen->move($ruta, $titulo_imagen);
-            //miniatura, (intervention image)
+            //miniatura, (libreria: intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
             $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
         }
@@ -146,6 +140,7 @@ class ControladorAdmin extends Controller {
         AND TABLE_NAME = "yourTableName"
         */
 
+        //obtengo la id de la planta que estoy por cargar
         $siguiente_id = DB::table('information_schema.TABLES')
             ->select('AUTO_INCREMENT')
             ->where('TABLE_NAME', "planta")
@@ -154,36 +149,23 @@ class ControladorAdmin extends Controller {
         $s = $s->AUTO_INCREMENT;    
         $id = preg_replace('/\D/', '', $s);
 
-        //obtengo la id de la planta que estoy por cargar
-        /*$temp = Planta::orderBy('id_planta', 'DESC')->first();
-        if ($temp != null) { ///////////////esto da problemas 
-            $id = $temp->id_planta + 1;
-        } else {
-            //esto no funciona
-            $id = 1;
-        }*/
         //la uso para crear una carpeta con el nombre de esa id
         $path = public_path('imagenes/' . $id);
         if (!File::isDirectory($path)) {
             $r = File::makeDirectory($path, 0777, true, true);
         }
-        ////
-
         
         if ($request->hasFile('archivo_imagen')) {
-            //titulo original 01/03
+            //titulo original
             $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
             $planta->titulo_imagen = $titulo_imagen;
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
-            //titulo
-            //$titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
-            //direccion
             //$ruta = public_path("imagenes/");
             $ruta = $path;
             //subo el archivo
             $archivo_imagen->move($ruta, $titulo_imagen);
-            //miniatura, (intervention image)
+            //miniatura, (libreria: intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
             $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
             
@@ -208,17 +190,11 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function detalleProducto() {
-        //no me acuerdo por que esta aca esta vista, es una vista de usuario
-        $titulo = "Detalle del producto";
-        return view('detalle-producto', ['titulo' => $titulo]);
-    }
-
     public function formularioFamilia() {
         $titulo = "Familias";
 
         $familias = Familia::all();
-        $plantas = Planta::all();
+        $plantas = Planta::all(); //lo uso para evitar eliminar familias que esten asignadas a una planta
 
         return view('admin', compact('titulo', 'familias', 'plantas'));
     }
@@ -258,7 +234,7 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function formularioPlanta() {
+    public function formularioPlanta() { //formulario de administrar plantas
         $titulo = "Plantas";
 
         $familias = Familia::all();
@@ -268,8 +244,6 @@ class ControladorAdmin extends Controller {
     }
     
     public function modificarMenor(Request $request) {
-        //me falta eliminar la imagen e insertar la nueva o reemplazar
-        
         $titulo = "Articulo al por menor";
         $request->validate([
             'nombre' => 'bail|required|max:100',
@@ -289,23 +263,19 @@ class ControladorAdmin extends Controller {
         $planta->tipo_venta = 0;
         $planta->id_familia = $request->familia;
         if ($request->hasFile('archivo_imagen')) {
-            
+            //borro la imagen y la miniatura (la carpeta sigue existiendo)
             File::delete($path . '/' . $planta->titulo_imagen);
             File::delete($path . '/' . 'm' . $planta->titulo_imagen);
-
-            //titulo original 01/03
+            //titulo original
             $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
             $planta->titulo_imagen = $titulo_imagen;
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
-            //titulo
-            //$titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
-            //direccion
             //$ruta = public_path("imagenes/");
             $ruta = $path;
             //subo el archivo
             $archivo_imagen->move($ruta, $titulo_imagen);
-            //miniatura, (intervention image)
+            //miniatura, (libreria: intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
             $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
             
@@ -347,18 +317,14 @@ class ControladorAdmin extends Controller {
         $planta->tipo_venta = 1;
         $planta->id_familia = $request->familia;
         if ($request->hasFile('archivo_imagen')) {
-            
+            //borro la imagen y la miniatura (la carpeta sigue existiendo)
             File::delete($path . '/' . $planta->titulo_imagen);
             File::delete($path . '/' . 'm' . $planta->titulo_imagen);
-
-            //titulo original 01/03
+            //titulo original
             $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
             $planta->titulo_imagen = $titulo_imagen;
             //archivo, el que se sube a la carpeta imagenes, no a la bd
             $archivo_imagen = $request->file('archivo_imagen');
-            //titulo
-            //$titulo_imagen = Str::slug($request->nombre) . "." . $archivo_imagen->guessExtension();
-            //direccion
             //$ruta = public_path("imagenes/");
             $ruta = $path;
             //subo el archivo
@@ -366,8 +332,6 @@ class ControladorAdmin extends Controller {
             //miniatura, (intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
             $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
-            
-       
         }
         //le asigno el titulo_imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;
@@ -388,10 +352,13 @@ class ControladorAdmin extends Controller {
         $id = $request->id;
         $planta = Planta::find($id);
         $path = public_path('imagenes/' . $id);
+        //borro ambas imagenes
         File::delete($path . '/' . $planta->titulo_imagen);
         File::delete($path . '/' . 'm' . $planta->titulo_imagen);        
+        //borro la carpeta
         if (File::exists($path)) File::deleteDirectory($path);      
 
+        //borro el registro que le corresponda en la tabla mayor o menor
         if($planta->tipo_venta == 0){
             $menor = Menor::where('id_planta', $id)->first()->delete();
         }else{

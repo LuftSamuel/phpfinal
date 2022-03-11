@@ -10,29 +10,18 @@ use App\Models\Menor;
 
 class ControladorPrincipal extends Controller
 {
-    /*
-    public function index(){
-        $titulo = "Inicio";
-        $plantas = Planta::paginate(4); //recuperar solo algunos en vez de todos
-        $familias = Familia::all();
-        $mayores = Mayor::all();
-        $menores = Menor::all();
-        return view('index',  compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
-    }
-     NO LO NECESITO, DEJO UN TIEMP=O POR SI LAS MOSCAS
-     */
     
     public function busqueda(Request $request){
         $titulo = "Inicio";
         $parametro = $request->buscar;
-        $plantas = Planta::where('nombre','like','%' . $parametro . '%')->paginate(16);
+        $plantas = Planta::where('nombre','like','%' . $parametro . '%')->paginate(8);
         $familias = Familia::all();
-        $mayores = Mayor::all();
-        $menores = Menor::all();
+        //$mayores = Mayor::all();
+        //$menores = Menor::all();
         
         $plantas->appends(['buscar' => $parametro]);
         
-        return view('index',  compact('titulo', 'plantas', 'familias', 'mayores', 'menores', 'parametro'));
+        return view('index',  compact('titulo', 'plantas', 'familias', 'parametro'));
     }
     
     public function detalleProducto($id){ //$id es el parametro que recibo de la ruta

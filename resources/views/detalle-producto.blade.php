@@ -1,13 +1,13 @@
 @include('cabecera')
     
-<div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="{{url('assets/img/hero')}}.jpg">
-        <form class="d-flex tm-search-form" action="{{ route('busqueda') }}">
-            <input class="form-control tm-search-input" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success tm-search-btn" type="submit">
-                <i class="fas fa-search"></i>
-            </button>
-        </form>
-    </div>
+<div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="{{url('assets/img/hero.jpg')}}">
+    <form class="d-flex tm-search-form" method="get" action="{{ route('busqueda') }}">
+        <input class="form-control tm-search-input" name="buscar" type="search" placeholder="Buscar" aria-label="Search">
+        <button class="btn btn-outline-success tm-search-btn" type="submit">
+            <i class="fas fa-search"></i>
+        </button>
+    </form>
+</div>
 
     <div class="container-fluid tm-container-content tm-mt-60">
         <div class="row mb-4">
@@ -40,7 +40,7 @@
                             </h6><br>
                             <h4 class="tm-text-primary">
                                 {{ "Precio unitario: " . $datosExtra->precio_unitario }}
-                            </h4>
+                            </h4><br>
                         @else
                             <h4 class="tm-text-primary">
                                 {{ "Articulo al por mayor" }}
