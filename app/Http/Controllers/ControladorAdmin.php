@@ -15,9 +15,11 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\DB;
 
-class ControladorAdmin extends Controller {
+class ControladorAdmin extends Controller
+{
 
-    public function index() { //la pagina principal del admin es donde ve los mensajes
+    public function index()
+    { //la pagina principal del admin es donde ve los mensajes
         $titulo = "Panel admin";
 
         $mensajes = Contacto::orderBy('id', 'desc')->paginate(2);
@@ -26,7 +28,8 @@ class ControladorAdmin extends Controller {
         return view('admin', compact('titulo', 'mensajes'));
     }
 
-    public function eliminarMensaje(Request $request){
+    public function eliminarMensaje(Request $request)
+    {
         $request->validate([
             'id' => 'required',
         ]);
@@ -37,23 +40,24 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function formularioMayor(Request $request) {
+    public function formularioMayor(Request $request)
+    {
         $titulo = "Articulo al por mayor";
         $familias = Familia::all();
         //$mayores = Mayor::all();
         //$menores = Menor::all();
 
-        if($request->filled('id')){
+        if ($request->filled('id')) {
             $modificar_planta = Planta::find($request->id);
             $modificar_mayor = Mayor::where('id_planta', $request->id)->first();
             return view('admin', compact('titulo', 'modificar_planta', 'familias', 'modificar_mayor'));
-        }else{
+        } else {
             return view('admin', compact('titulo', 'familias'));
-        }       
-        
+        }
     }
 
-    public function crearMayor(Request $request) {
+    public function crearMayor(Request $request)
+    {
         $request->validate([
             'nombre' => 'bail|required|max:100',
             'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
@@ -76,8 +80,8 @@ class ControladorAdmin extends Controller {
             ->select('AUTO_INCREMENT')
             ->where('TABLE_NAME', "planta")
             ->get();
-        $s = $siguiente_id[1]; 
-        $s = $s->AUTO_INCREMENT;    
+        $s = $siguiente_id[1];
+        $s = $s->AUTO_INCREMENT;
         $id = preg_replace('/\D/', '', $s); //seguro hay alguna forma mas sencilla de obtener ese numero
 
         //la uso para crear una carpeta con el nombre de esa id
@@ -116,23 +120,25 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function formularioMenor(Request $request) {
-        $titulo = "Articulo al por menor";        
+    public function formularioMenor(Request $request)
+    {
+        $titulo = "Articulo al por menor";
         $familias = Familia::all();
         $mayores = Mayor::all();
         $menores = Menor::all();
 
-        if($request->filled('id')){
+        if ($request->filled('id')) {
             $modificar_planta = Planta::find($request->id);
             $modificar_menor = Menor::where('id_planta', $request->id)->first();
             return view('admin', compact('titulo', 'modificar_planta', 'familias', 'modificar_menor'));
-        }else{
+        } else {
             $plantas = planta::all();
         }
         return view('admin', compact('titulo', 'plantas', 'familias', 'mayores', 'menores'));
     }
 
-    public function crearMenor(Request $request) {
+    public function crearMenor(Request $request)
+    {
         $request->validate([
             'nombre' => 'bail|required|max:100',
             'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
@@ -157,7 +163,7 @@ class ControladorAdmin extends Controller {
             ->where('TABLE_NAME', "planta")
             ->get();
         $s = $siguiente_id[1];
-        $s = $s->AUTO_INCREMENT;    
+        $s = $s->AUTO_INCREMENT;
         $id = preg_replace('/\D/', '', $s);
 
         //la uso para crear una carpeta con el nombre de esa id
@@ -165,7 +171,7 @@ class ControladorAdmin extends Controller {
         if (!File::isDirectory($path)) {
             $r = File::makeDirectory($path, 0777, true, true);
         }
-        
+
         if ($request->hasFile('archivo_imagen')) {
             //titulo original
             $titulo_imagen = $request->archivo_imagen->getClientOriginalName();
@@ -179,8 +185,6 @@ class ControladorAdmin extends Controller {
             //miniatura, (libreria: intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
             $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
-            
-       
         }
         //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
         $planta->titulo_imagen = $titulo_imagen;
@@ -201,7 +205,8 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function formularioFamilia() {
+    public function formularioFamilia()
+    {
         $titulo = "Familias";
 
         $familias = Familia::all();
@@ -210,7 +215,8 @@ class ControladorAdmin extends Controller {
         return view('admin', compact('titulo', 'familias', 'plantas'));
     }
 
-    public function crearFamilia(Request $request) {
+    public function crearFamilia(Request $request)
+    {
         $request->validate([
             'familia' => 'bail|required|max:100',
         ]);
@@ -221,7 +227,8 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function borrarFamilia(Request $request) {
+    public function borrarFamilia(Request $request)
+    {
         $request->validate([
             'id_familia' => 'required',
         ]);
@@ -232,7 +239,8 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function modificarFamilia(Request $request) {
+    public function modificarFamilia(Request $request)
+    {
         $request->validate([
             'nombre' => 'bail|required|max:100',
         ]);
@@ -244,7 +252,8 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function formularioPlanta() { //formulario de administrar plantas
+    public function formularioPlanta()
+    { //formulario de administrar plantas
         $titulo = "Plantas";
 
         $familias = Familia::all();
@@ -252,12 +261,13 @@ class ControladorAdmin extends Controller {
 
         return view('admin', compact('titulo', 'familias', 'plantas'));
     }
-    
-    public function modificarMenor(Request $request) {
+
+    public function modificarMenor(Request $request)
+    {
         $titulo = "Articulo al por menor";
         $request->validate([
             'nombre' => 'bail|required|max:100',
-            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
+            'archivo_imagen' => 'bail|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
             'cantidad_stock' => 'bail|required|numeric|integer',
             'precio_unitario' => 'bail|required|numeric|integer',
         ]);
@@ -288,13 +298,12 @@ class ControladorAdmin extends Controller {
             //miniatura, (libreria: intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
             $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
-            
-       
+            //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
+            $planta->titulo_imagen = $titulo_imagen;
+            //guardo la ruta que tenia en la variable $ruta
+            $planta->direccion_imagen = $ruta;
         }
-        //le asigno el titulo:imagen que tenia arriba y use para subir a la carpeta imagenes
-        $planta->titulo_imagen = $titulo_imagen;
-        //guardo la ruta que tenia en la variable $ruta
-        $planta->direccion_imagen = $ruta;
+
 
         $planta->save();
 
@@ -308,11 +317,12 @@ class ControladorAdmin extends Controller {
         //return view('crear_articulo_menor', ['titulo' => $titulo]);
         return redirect('index');
     }
-    
-    public function modificarMayor(Request $request){
+
+    public function modificarMayor(Request $request)
+    {
         $request->validate([
             'nombre' => 'bail|required|max:100',
-            'archivo_imagen' => 'bail|required|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
+            'archivo_imagen' => 'bail|image|mimes:jpg,png,jpeg,svg,webp|max:4096|dimensions:min_width=800,min_height=600',
             'pedido_minimo' => 'bail|required|numeric|integer',
         ]);
         //obtengo la id de la planta que estoy por modificar
@@ -342,11 +352,12 @@ class ControladorAdmin extends Controller {
             //miniatura, (intervention image)
             $miniatura = Image::make($ruta . '/' . $titulo_imagen)->resize(300, 200); //jugar un poco con las dimensiones
             $miniatura->save($ruta . '/' . 'm' . $titulo_imagen, 60);
+            //le asigno el titulo_imagen que tenia arriba y use para subir a la carpeta imagenes
+            $planta->titulo_imagen = $titulo_imagen;
+            //guardo la ruta que tenia en la variable $ruta
+            $planta->direccion_imagen = $ruta;
         }
-        //le asigno el titulo_imagen que tenia arriba y use para subir a la carpeta imagenes
-        $planta->titulo_imagen = $titulo_imagen;
-        //guardo la ruta que tenia en la variable $ruta
-        $planta->direccion_imagen = $ruta;
+
 
         $planta->save();
 
@@ -358,26 +369,26 @@ class ControladorAdmin extends Controller {
         return redirect('index');
     }
 
-    public function eliminarPlanta(Request $request){
+    public function eliminarPlanta(Request $request)
+    {
         $id = $request->id;
         $planta = Planta::find($id);
         $path = public_path('imagenes/' . $id);
         //borro ambas imagenes
         File::delete($path . '/' . $planta->titulo_imagen);
-        File::delete($path . '/' . 'm' . $planta->titulo_imagen);        
+        File::delete($path . '/' . 'm' . $planta->titulo_imagen);
         //borro la carpeta
-        if (File::exists($path)) File::deleteDirectory($path);      
+        if (File::exists($path)) File::deleteDirectory($path);
 
         //borro el registro que le corresponda en la tabla mayor o menor
-        if($planta->tipo_venta == 0){
+        if ($planta->tipo_venta == 0) {
             $menor = Menor::where('id_planta', $id)->first()->delete();
-        }else{
+        } else {
             $mayor = Mayor::where('id_planta', $id)->first()->delete();
-        }       
+        }
 
         $planta = Planta::find($id)->delete();
-        
+
         return redirect('index');
     }
-
 }

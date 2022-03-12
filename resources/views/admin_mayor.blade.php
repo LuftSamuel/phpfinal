@@ -26,7 +26,7 @@
                 <!-- input archivo imagen -->
                 <div class="mb-3">
                     <label for="inputFile" class="form-label">Archivo imagen</label>
-                    <input class="form-control" type="file" name="archivo_imagen" id="formFileMultiple" required>
+                    <input class="form-control" type="file" name="archivo_imagen" id="formFileMultiple" @if(!isset($modificar_planta)) required @endif>
                 </div>
                 <!-- input pedido minimo -->
                 <div class="mb-3">
