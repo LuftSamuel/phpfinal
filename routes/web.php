@@ -41,6 +41,7 @@ Route::get('/admin', function () {
     return redirect('/admin/index');
 });
 Route::get('/admin/index',[ControladorAdmin::class, 'index'])->name('admin.index')->middleware('auth');
+Route::get('/admin/eliminarMensaje',[ControladorAdmin::class, 'eliminarMensaje'])->name('admin.mensaje.eliminar')->middleware('auth');
     //rutas para crear productos 
 Route::get('/admin/mayor',[ControladorAdmin::class, 'formularioMayor'])->name('admin.mayor')->middleware('auth');
 Route::post('/admin/crearMayor',[ControladorAdmin::class, 'crearMayor'])->name('admin.mayor.crear')->middleware('auth');

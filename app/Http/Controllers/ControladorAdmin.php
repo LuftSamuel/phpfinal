@@ -26,6 +26,17 @@ class ControladorAdmin extends Controller {
         return view('admin', compact('titulo', 'mensajes'));
     }
 
+    public function eliminarMensaje(Request $request){
+        $request->validate([
+            'id' => 'required',
+        ]);
+        $id_mensaje = $request->id;
+        $mensaje = Contacto::find($id_mensaje);
+        $mensaje->delete();
+
+        return redirect('index');
+    }
+
     public function formularioMayor(Request $request) {
         $titulo = "Articulo al por mayor";
         $familias = Familia::all();

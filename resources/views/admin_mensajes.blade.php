@@ -1,15 +1,13 @@
-
-
 <!-- /. NAV SIDE  -->
-<div id="page-wrapper" >
+<div id="page-wrapper">
 
     <div id="page-inner">
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2>Panel de administrador</h2>   
+                <h2>Panel de administrador</h2>
             </div>
-        </div>              
+        </div>
 
         <div class="">
 
@@ -24,22 +22,30 @@
                                 <th>Nombre</th>
                                 <th>Email</th>
                                 <th>Motivo</th>
-                                <th>Mensaje</th>
-                            </tr> 
+                                <th></th>
+                                <th></th>                                
+                            </tr>
                         </thead>
                         <tbody>
                             @foreach($mensajes as $mensaje)
                             <tr data-toggle="collapse" id="table1" data-target=".table1">
                                 <td>{{ $mensaje->id }}</td>
-                                <td>{{ $mensaje->enviado }}</td>  
+                                <td>{{ $mensaje->enviado }}</td>
                                 <td>{{ $mensaje->nombre }}</td>
                                 <td>{{ $mensaje->email }}</td>
                                 <td>
                                     @if($mensaje->motivo == 0)
-                                        Compra al por mayor 
+                                    Compra al por mayor
                                     @else
-                                        Otra consulta 
+                                    Otra consulta
                                     @endif
+                                </td>
+                                <td>
+
+                                    <form action="{{route('admin.mensaje.eliminar')}}" onsubmit="return confirm('Seguro que deseas eliminar este mensaje?');">
+                                        <input type="hidden" value="{{$mensaje->id}}" name="id">
+                                        <button type="submit">Eliminar</button>
+                                    </form>
                                 </td>
                                 <td><button class="btn btn-default btn-sm">View More</button></td>
                             </tr>
@@ -75,19 +81,19 @@
                                         </table>
                                     </div>
                                 </td>
-                            </tr> 
+                            </tr>
                             @endforeach
                         </tbody>
                     </table>
-                    
+
                     <div class="row text-center pad-top">
                         {{ $mensajes->onEachSide(2)->links() }}
                     </div>
-                    
+
                 </div>
             </div>
-            
-            
+
+
 
         </div>
 
