@@ -14,12 +14,14 @@ class ControladorPrincipal extends Controller
     public function busqueda(Request $request){
         $titulo = "Inicio";
         $parametro = $request->buscar;
-        $plantas = Planta::where('nombre','like','%' . $parametro . '%')->paginate(8);
+        $plantas = Planta::where('nombre','like','%' . $parametro . '%')->
+        orderBy('id_planta', 'desc')->
+        paginate(8);
         $familias = Familia::all();
-        //$mayores = Mayor::all();
-        //$menores = Menor::all();
         
         $plantas->appends(['buscar' => $parametro]);
+        //lo pue haber echo con el metodo withPath
+        //podria usar withQueryString si tambien le paso la categoria
         
         return view('index',  compact('titulo', 'plantas', 'familias', 'parametro'));
     }

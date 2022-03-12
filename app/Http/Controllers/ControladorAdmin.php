@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\DB;
 
 class ControladorAdmin extends Controller {
 
-    public function index() {
+    public function index() { //la pagina principal del admin es donde ve los mensajes
         $titulo = "Panel admin";
 
-        //$mensajes = Contacto::paginate()->latest;
-        $mensajes = Contacto::orderBy('id', 'DESC')->limit(16)->get();
+        $mensajes = Contacto::orderBy('id', 'desc')->paginate(2);
+        //$mensajes = Contacto::orderBy('id', 'DESC')->limit(16)->get();
 
         return view('admin', compact('titulo', 'mensajes'));
     }
@@ -212,11 +212,10 @@ class ControladorAdmin extends Controller {
 
     public function borrarFamilia(Request $request) {
         $request->validate([
-            'familia' => 'required',
+            'id_familia' => 'required',
         ]);
         $id_familia = $request->id_familia;
-        //$familia = Familia::find($id_familia);
-        $familia = Familia::where('id_familia', $id_familia);
+        $familia = Familia::find($id_familia);
         $familia->delete();
 
         return redirect('index');
@@ -227,7 +226,7 @@ class ControladorAdmin extends Controller {
             'nombre' => 'bail|required|max:100',
         ]);
         $id_familia = $request->id_familia;
-        $familia = Familia::where('id_familia', $id_familia)->first();
+        $familia = Familia::find($id_familia);
         $familia->familia = $request->nombre;
         $familia->save();
 
@@ -238,7 +237,7 @@ class ControladorAdmin extends Controller {
         $titulo = "Plantas";
 
         $familias = Familia::all();
-        $plantas = Planta::all();
+        $plantas = Planta::orderBy('id_planta', 'desc')->paginate(6);
 
         return view('admin', compact('titulo', 'familias', 'plantas'));
     }
@@ -288,7 +287,7 @@ class ControladorAdmin extends Controller {
 
         $planta->save();
 
-        $menor = Menor::where('id_planta', $id)->first();
+        $menor = Menor::find($id);
         $menor->cantidad_stock = $request->cantidad_stock;
         $menor->precio_unitario = $request->precio_unitario;
 
@@ -340,7 +339,7 @@ class ControladorAdmin extends Controller {
 
         $planta->save();
 
-        $mayor = Mayor::where('id_planta', $id)->first();
+        $mayor = Mayor::find($id);
         $mayor->pedido_minimo = $request->pedido_minimo;
 
         $mayor->save();

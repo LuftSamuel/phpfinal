@@ -11,7 +11,7 @@
             </div>
         </div>              
 
-        <div class="row text-center pad-top">
+        <div class="">
 
             <div class="col-sm-12">
                 <div class="panel panel-default">
@@ -79,6 +79,11 @@
                             @endforeach
                         </tbody>
                     </table>
+                    
+                    <div class="row text-center pad-top">
+                        {{ $mensajes->onEachSide(2)->links() }}
+                    </div>
+                    
                 </div>
             </div>
             

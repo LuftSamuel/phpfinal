@@ -60,7 +60,11 @@
                 @endforeach
                 
             </tbody>
+            
         </table>
+        <div class="row text-center pad-top">
+            {{ $plantas->links() }}
+        </div>        
 
     </div>
 
