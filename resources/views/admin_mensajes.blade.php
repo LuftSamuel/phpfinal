@@ -28,7 +28,7 @@
                         </thead>
                         <tbody>
                             @foreach($mensajes as $mensaje)
-                            <tr data-toggle="collapse" id="table1" data-target=".table1">
+                            <tr>
                                 <td>{{ $mensaje->id }}</td>
                                 <td>{{ $mensaje->enviado }}</td>
                                 <td>{{ $mensaje->nombre }}</td>
@@ -47,41 +47,17 @@
                                         <button type="submit">Eliminar</button>
                                     </form>
                                 </td>
-                                <td><button class="btn btn-default btn-sm">View More</button></td>
+                                <td><button class="btn btn-default btn-sm" onclick="mostrarMensaje({{$mensaje->id}})">View More</button></td>
+                                
+                               
+
+                                <tr class="d-none" id="mensaje{{$mensaje->id}}">
+                                    <td colspan="6">
+                                        <div>{{$mensaje->mensaje}}</div>
+                                    </td>
+                                </tr>
                             </tr>
 
-                            <tr class="collapse table1">
-                                <td colspan="999">
-                                    <div>
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Column 1</th>
-                                                    <th>Column 2</th>
-                                                    <th>Column 3</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>Column 1</td>
-                                                    <td>Column 2</td>
-                                                    <td>Column 3</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Column 1</td>
-                                                    <td>Column 2</td>
-                                                    <td>Column 3</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Column 1</td>
-                                                    <td>Column 2</td>
-                                                    <td>Column 3</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </td>
-                            </tr>
                             @endforeach
                         </tbody>
                     </table>

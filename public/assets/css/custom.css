@@ -12,6 +12,9 @@
 /*==============================================
     GENERAL  STYLES    
     =============================================*/
+.d-none{
+    display: none;
+}
 body {
     font-family: 'Open Sans', sans-serif;
     line-height:30px;
