@@ -3,7 +3,8 @@
 <div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll"
     data-image-src="{{ url('assets/img/hero.jpg') }}">
     <form class="d-flex tm-search-form" method="get" action="{{ route('busqueda') }}">
-        <input class="form-control tm-search-input" name="buscar" type="search" placeholder="Buscar" aria-label="Search">
+        {{-- lo que tiene dentro del value es para que no se pierda lo escrito en el campo busqueda --}}
+        <input class="form-control tm-search-input" name="buscar" type="search" value="{{ request()->query('buscar') }}" placeholder="Buscar" aria-label="Search">
         <button class="btn btn-outline-success tm-search-btn" type="submit">
             <i class="fas fa-search"></i>
         </button>
@@ -34,7 +35,7 @@
     <div class="row tm-mb-90 tm-gallery">
         <!-- desde aca -->
 
-        @foreach ($plantas as $planta)
+        @forelse ($plantas as $planta)
             <!-- todavia no tengo imagenes para poner -->
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
@@ -47,7 +48,11 @@
                     </figcaption>
                 </figure>
             </div>
-        @endforeach
+        @empty
+        <p class="text-center">
+            No se han encontrado resultados para <strong>{{request()->query('buscar')}}</strong>
+        </p>
+        @endforelse
 
     </div> <!-- hasta aca row -->
 

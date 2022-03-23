@@ -12,6 +12,8 @@ class ControladorPrincipal extends Controller
 {
     
     public function busqueda(Request $request){
+        //es la ruta la que llama al metodo buscar y el parametro lo saca
+        //del input search, osea que la url no la estoy usando para nada
         $titulo = "Inicio";
         $parametro = $request->buscar;
         $plantas = Planta::where('nombre','like','%' . $parametro . '%')->
@@ -19,7 +21,7 @@ class ControladorPrincipal extends Controller
         paginate(8);
         $familias = Familia::all();
         
-        $plantas->appends(['buscar' => $parametro]);
+        $plantas->appends(['buscar' => $parametro]); // para que la busqueda no se pierda al pasar de pagina
         //lo pue haber echo con el metodo withPath
         //podria usar withQueryString si tambien le paso la categoria
         
