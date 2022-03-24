@@ -4,7 +4,8 @@
     data-image-src="{{ url('assets/img/hero.jpg') }}">
     <form class="d-flex tm-search-form" method="get" action="{{ route('busqueda') }}">
         {{-- lo que tiene dentro del value es para que no se pierda lo escrito en el campo busqueda --}}
-        <input class="form-control tm-search-input" name="buscar" type="search" value="{{ request()->query('buscar') }}" placeholder="Buscar" aria-label="Search">
+        <input class="form-control tm-search-input" name="buscar" type="search"
+            value="{{ request()->query('buscar') }}" placeholder="Buscar" aria-label="Search">
         <button class="btn btn-outline-success tm-search-btn" type="submit">
             <i class="fas fa-search"></i>
         </button>
@@ -15,18 +16,23 @@
 
     <div class="row mb-4">
 
-
         <div class="col-6 tm-text-primary">
-            <h2>
+            <h2 class="d-inline">
                 Ultimos Articulos
             </h2>
+            <select class="selectpicker">
+                <option>Mustard</option>
+                <option>Ketchup</option>
+                <option>Relish</option>
+            </select>
+
         </div>
 
 
-        <div class="col-6 d-flex justify-content-end align-items-center">
+        <div class="  col-6 d-flex justify-content-end align-items-center">
             <form action="" class="tm-text-primary">
-                Pagina <input type="text" href="{{ $plantas->url(2) }}" value="{{ $plantas->currentPage() }}" size="1"
-                    class="tm-input-paging tm-text-primary"> de {{ $plantas->lastPage() }}
+                Pagina <input type="text" href="{{ $plantas->url(2) }}" value="{{ $plantas->currentPage() }}"
+                    size="1" class="tm-input-paging tm-text-primary"> de {{ $plantas->lastPage() }}
             </form>
         </div>
 
@@ -49,9 +55,9 @@
                 </figure>
             </div>
         @empty
-        <p class="text-center">
-            No se han encontrado resultados para <strong>{{request()->query('buscar')}}</strong>
-        </p>
+            <p class="text-center">
+                No se han encontrado resultados para <strong>{{ request()->query('buscar') }}</strong>
+            </p>
         @endforelse
 
     </div> <!-- hasta aca row -->

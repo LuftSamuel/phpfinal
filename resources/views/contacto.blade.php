@@ -5,6 +5,11 @@
 <div class="container-fluid tm-mt-60">
     <div class="row tm-mb-50">
         <div class="col-lg-4 col-12 mb-5">
+            @if (Session::has('alert-success'))
+                <div class="alert alert-success alert-dismissible"><em>
+                        {!! session('alert-success') !!}</em>
+                </div>
+            @endif
             <h2 class="tm-text-primary mb-5">Formulario de contacto</h2>
             <form id="contact-form" action="" method="POST" class="tm-contact-form mx-auto">
                 @csrf

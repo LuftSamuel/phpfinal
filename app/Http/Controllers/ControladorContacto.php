@@ -28,7 +28,7 @@ class ControladorContacto extends Controller
 
         Contacto::create($request->all());
 
-        return back()->with('success', 'We have received your message and would like'
-            . ' to thank you for writing to us.'); //de nuevo no recibo el mensaje
+        $request->session()->flash('alert-success', 'Hemos recibido tu mensaje! Pronto te estaremos respondiendo a través del email proporcionado.');
+        return back();
     }
 }

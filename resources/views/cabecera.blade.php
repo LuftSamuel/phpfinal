@@ -29,9 +29,6 @@
             <a class="navbar-brand" href="{{ route('busqueda') }}">
                 <i class="fas fa-film mr-2"></i>
                 {{str_replace("_"," ",config('app.name'))}}
-                <!-- En esta parte podria revisar si el admin esta logeado y si esta 
-                entonces que en la navegacion me aparezcan mas links, para desloguearse
-                y para ir a la pagina de admin, abajo tengo algo parecido-->
             </a>
             
             @if(Auth::User())

@@ -37,7 +37,8 @@ class ControladorAdmin extends Controller
         $mensaje = Contacto::find($id_mensaje);
         $mensaje->delete();
 
-        return redirect('index');
+        $request->session()->flash('alert-success', 'Mensaje Eliminado!');
+        return back();
     }
 
     public function formularioMayor(Request $request)
@@ -117,7 +118,8 @@ class ControladorAdmin extends Controller
 
         $mayor->save();
 
-        return redirect('index');
+        $request->session()->flash('alert-success', 'Producto Agregado!.');
+        return back();
     }
 
     public function formularioMenor(Request $request)
@@ -200,9 +202,8 @@ class ControladorAdmin extends Controller
 
         $menor->save();
 
-        //$titulo = "Articulo al por menor";
-        //return view('crear_articulo_menor', ['titulo' => $titulo]);
-        return redirect('index');
+        $request->session()->flash('alert-success', 'Producto Agregado!.');
+        return back();
     }
 
     public function formularioFamilia()
@@ -224,7 +225,8 @@ class ControladorAdmin extends Controller
         $familia->familia = $request->familia;
         $familia->save();
 
-        return redirect('index');
+        $request->session()->flash('fm_crear', 'Familia Agregada!');
+        return back();
     }
 
     public function borrarFamilia(Request $request)
@@ -236,7 +238,8 @@ class ControladorAdmin extends Controller
         $familia = Familia::find($id_familia);
         $familia->delete();
 
-        return redirect('index');
+        $request->session()->flash('fm_eliminar', 'Familia Eliminada!');
+        return back();
     }
 
     public function modificarFamilia(Request $request)
@@ -249,7 +252,8 @@ class ControladorAdmin extends Controller
         $familia->familia = $request->nombre;
         $familia->save();
 
-        return redirect('index');
+        $request->session()->flash('fm_modificar', 'Familia Modificada!');
+        return back();
     }
 
     public function formularioPlanta()
@@ -313,9 +317,8 @@ class ControladorAdmin extends Controller
 
         $menor->save();
 
-        //$titulo = "Articulo al por menor";
-        //return view('crear_articulo_menor', ['titulo' => $titulo]);
-        return redirect('index');
+        $request->session()->flash('alert-success', 'Producto Modificado!.');
+        return back();
     }
 
     public function modificarMayor(Request $request)
@@ -366,7 +369,8 @@ class ControladorAdmin extends Controller
 
         $mayor->save();
 
-        return redirect('index');
+        $request->session()->flash('alert-success', 'Producto Modificado!.');
+        return back();
     }
 
     public function eliminarPlanta(Request $request)
@@ -389,6 +393,7 @@ class ControladorAdmin extends Controller
 
         $planta = Planta::find($id)->delete();
 
-        return redirect('index');
+        $request->session()->flash('alert-success', 'Producto Eliminado!.');
+        return back();
     }
 }

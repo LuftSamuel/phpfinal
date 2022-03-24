@@ -43,6 +43,8 @@ class ControladorLogin extends Controller
         $request->session()->invalidate();
         //regenerar tokern csrf
         $request->session()->regenerateToken();
-        return redirect(route('busqueda'))->with('status', 'has cerrado cesion.'); //no se muestra el mensaje, capaz por los estilos           
+
+        //$request->session()->flash('alert-success', 'Has cerrado sesión!.');
+        return redirect(route('busqueda'));        
     }
 }
