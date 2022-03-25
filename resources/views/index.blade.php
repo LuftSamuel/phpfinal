@@ -9,7 +9,7 @@
         <button class="btn btn-outline-success tm-search-btn" type="submit">
             <i class="fas fa-search"></i>
         </button>
-    </form>
+    {{-- </form> --}} <!-- Comentario para acordarme que quedo desestructurado el formulario, pero funciono -->
 </div>
 
 <div class="container-fluid tm-container-content tm-mt-60">
@@ -20,11 +20,13 @@
             <h2 class="d-inline">
                 Ultimos Articulos
             </h2>
-            <select class="selectpicker">
-                <option>Mustard</option>
-                <option>Ketchup</option>
-                <option>Relish</option>
+            {{-- <form action="{{ route('busqueda') }}" class="d-inline" method="get"> --}}
+            <select id="categoria" name="categoria" class="selectpicker">
+                <option value="2" @if($categoria == 2) selected @endif>Todos</option>
+                <option value="0" @if ($categoria == 0) selected @endif>Minoristas</option>
+                <option value="1" @if ($categoria == 1) selected @endif>Mayoristas</option>
             </select>
+        </form>
 
         </div>
 
@@ -42,7 +44,6 @@
         <!-- desde aca -->
 
         @forelse ($plantas as $planta)
-            <!-- todavia no tengo imagenes para poner -->
             <div class="col-xl-3 col-lg-4 col-md-6 col-sm-6 col-12 mb-5">
                 <figure class="effect-ming tm-video-item">
                     <img src="{{ asset('imagenes/' . $planta->id_planta . '/' . 'm' . $planta->titulo_imagen) }}"
@@ -144,3 +145,12 @@
 </div> <!-- container-fluid, tm-container-content -->
 
 @include('pie')
+
+<script type="text/javascript">
+
+    jQuery(function() {
+      jQuery('#categoria').change(function() {
+          this.form.submit();
+      });
+  });
+  </script>

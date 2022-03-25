@@ -25,7 +25,9 @@ Route::get('/', function () {
 
 //Route::get('/index',[ControladorPrincipal::class, 'index'])->name('inicio'); //no me deja llamar a esta ruta en cabecera
 Route::get('/index',[ControladorPrincipal::class, 'busqueda'])->name('busqueda'); //misma url, no sera confuso?
-Route::get('/index/detalle-producto',[ControladorPrincipal::class, 'detalleProducto']);
+Route::get('/index/detalle-producto', function () {
+    return redirect('/index'); //por ahora le dejo esto pero si no existe la ruta deberia mostrar un 404 mejor
+});
 Route::get('/index/detalle-producto/{id}',[ControladorPrincipal::class, 'detalleProducto'])->name('individual');
 Route::get('/contacto',[ControladorContacto::class, 'index'])->name('contacto.mostrar');
 Route::post('/contacto',[ControladorContacto::class, 'contacto'])->name('contacto.guardar');

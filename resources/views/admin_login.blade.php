@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>{{ $titulo }}</title>
+    <title>{{$titulo . " | " . str_replace("_"," ",config('app.name'))}}</title>
     <link href="assets/css/admin_login.css" rel="stylesheet" />
 </head>
 
