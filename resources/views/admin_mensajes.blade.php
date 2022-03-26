@@ -37,8 +37,18 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $b = 1;
+                            @endphp
                             @foreach ($mensajes as $mensaje)
-                                <tr>
+                                @php
+                                    if ($b == 0) {
+                                        $b = 1;
+                                    } else {
+                                        $b = 0;
+                                    }
+                                @endphp
+                                <tr @if($b == 1) class="bg-info" @endif>
                                     <td>{{ $mensaje->id }}</td>
                                     <td>{{ $mensaje->enviado }}</td>
                                     <td>{{ $mensaje->nombre }}</td>

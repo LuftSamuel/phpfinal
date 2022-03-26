@@ -1,6 +1,7 @@
 @include('cabecera')
 
-<div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll" data-image-src="{{url('assets/img/hero.jpg')}}"></div>
+<div class="tm-hero d-flex justify-content-center align-items-center" data-parallax="scroll"
+    data-image-src="{{asset('assets/img/hero.jpg')}}"></div>
 
 <div class="container-fluid tm-mt-60">
     <div class="row tm-mb-50">

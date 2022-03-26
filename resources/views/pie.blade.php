@@ -9,6 +9,7 @@
         </div>
     </footer>
     
+    <!-- Plugin para el loader -->
     <script src="{{url('assets/js/plugins.js')}}"></script>
     <script>
         $(window).on("load", function() {

@@ -23,9 +23,18 @@
                 </tr>
             </thead>
             <tbody>
-
+                @php 
+                    $b=0; 
+                @endphp
                 @foreach ($plantas as $planta)
-                    <tr>
+                    @php
+                        if($b == 0){
+                            $b = 1;
+                        }else{
+                            $b = 0;
+                        }
+                    @endphp
+                    <tr @if($b == 1) class="bg-info" @endif>
                         <td>{{ $planta->nombre }}</td>
 
                         <td>

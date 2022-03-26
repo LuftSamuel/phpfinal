@@ -22,7 +22,7 @@ class ControladorAdmin extends Controller
     { //la pagina principal del admin es donde ve los mensajes
         $titulo = "Panel admin";
 
-        $mensajes = Contacto::orderBy('id', 'desc')->paginate(2);
+        $mensajes = Contacto::orderBy('id', 'desc')->paginate(12);
         //$mensajes = Contacto::orderBy('id', 'DESC')->limit(16)->get();
 
         return view('admin', compact('titulo', 'mensajes'));
@@ -261,7 +261,7 @@ class ControladorAdmin extends Controller
         $titulo = "Plantas";
 
         $familias = Familia::all();
-        $plantas = Planta::orderBy('id_planta', 'desc')->paginate(6);
+        $plantas = Planta::orderBy('id_planta', 'desc')->paginate(12);
 
         return view('admin', compact('titulo', 'familias', 'plantas'));
     }
